@@ -3,40 +3,70 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+static def releaseTime() {
+    return new Date().format("yyyyMMdd-HHmmss", TimeZone.getTimeZone("GMT+8"))
+}
+
 android {
-    compileSdk 32
+    compileSdk cfgs.compileSdkVersion
 
     defaultConfig {
         applicationId "com.suromo.magic"
-        minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        minSdk cfgs.minSdkVersion
+        targetSdk cfgs.targetSdkVersion
+        versionCode cfgs.versionCode
+        versionName cfgs.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner cfgs.testInstrumentationRunner
+
+        multiDexEnabled true
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file(sign.file)
+            storePassword sign.storePassword
+            keyAlias sign.keyAlias
+            keyPassword sign.keyPassword
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true // 混淆
+            shrinkResources true // 去除无用资源 与lint不同
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "Magic_${defaultConfig.versionName}_${releaseTime()}.apk"
+                }
+            }
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion des.compose_version
     }
     packagingOptions {
         resources {
@@ -48,14 +78,14 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation "androidx.compose.ui:ui:$des.compose_version"
+    implementation "androidx.compose.material:material:$des.compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$des.compose_version"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.activity:activity-compose:1.4.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$des.compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$des.compose_version"
 }
