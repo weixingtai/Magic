@@ -10,14 +10,14 @@ import androidx.room.RoomDatabase
  * desc   :
  */
 
-@Database(
-    entities = [
-
-    ],
-    version = 1,
-    exportSchema = false
-)
-
-abstract class MagicDatabase : RoomDatabase() {
-
-}
+//@Database(
+//    entities = [
+//
+//    ],
+//    version = 1,
+//    exportSchema = false
+//)
+//
+//abstract class MagicDatabase : RoomDatabase() {
+//
+//}

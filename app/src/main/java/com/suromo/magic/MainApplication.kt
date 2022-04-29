@@ -1,6 +1,8 @@
 package com.suromo.magic
 
 import com.suromo.common.BaseApplication
+import com.suromo.magic.data.repository.AppContainer
+import com.suromo.magic.data.repository.AppContainerImpl
 
 /**
  * author : weixingtai
@@ -10,8 +12,10 @@ import com.suromo.common.BaseApplication
  */
 class MainApplication : BaseApplication() {
 
+    lateinit var container: AppContainer
+
     override fun onCreate() {
         super.onCreate()
-
+        container = AppContainerImpl(this)
     }
 }

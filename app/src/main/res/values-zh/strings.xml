@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Magic</string>
+    <string name="title_acztivity_user_compose">UserCompose</string>
+
+    <string name="home">首页</string>
+    <string name="about_me">关于我</string>
+    <string name="leave_me_message">给我留言</string>
+    <string name="collection">收藏</string>
+    <string name="disclaimer">免责声明</string>
+    <string name="setting">设置</string>
+
+</resources>

@@ -1,19 +1,18 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 32
+    compileSdk cfgs.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.suromo.common"
-        minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        minSdk cfgs.minSdkVersion
+        targetSdk cfgs.targetSdkVersion
+        versionCode cfgs.versionCode
+        versionName cfgs.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner cfgs.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary true
         }

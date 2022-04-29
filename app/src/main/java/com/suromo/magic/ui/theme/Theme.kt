@@ -5,40 +5,39 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
+private val LightThemeColors = lightColors(
+    primary = Green700,
+    primaryVariant = Green900,
     onPrimary = Color.White,
-    onSecondary = Color.Black,
+    secondary = Green700,
+    secondaryVariant = Green900,
+    onSecondary = Color.White,
+    error = Green800,
     onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+
+    )
+
+private val DarkThemeColors = darkColors(
+    primary = Green300,
+    primaryVariant = Green700,
+    onPrimary = Color.Black,
+    secondary = Green300,
+    onSecondary = Color.Black,
+    error = Green200,
+    onBackground = Color.White
 )
 
 @Composable
-fun MagicTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+fun MagicTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
+        colors = if (darkTheme) DarkThemeColors else LightThemeColors,
+        typography = MagicTypography,
+        shapes = MagicShapes,
         content = content
     )
 }
