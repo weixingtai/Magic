@@ -64,7 +64,7 @@ fun AppDrawer(
         DrawerButton(
             icon = Icons.Filled.Message,
             label = stringResource(id = R.string.leave_me_message),
-            isSelected = currentRoute == MainDestinations.ABOUT_ROUTE,
+            isSelected = currentRoute == MainDestinations.MESSAGE_ROUTE,
             action = {
                 navigateToMessage()
                 closeDrawer()
@@ -73,7 +73,7 @@ fun AppDrawer(
         DrawerButton(
             icon = Icons.Filled.Collections,
             label = stringResource(id = R.string.collection),
-            isSelected = currentRoute == MainDestinations.ABOUT_ROUTE,
+            isSelected = currentRoute == MainDestinations.COLLECT_ROUTE,
             action = {
                 navigateToCollection()
                 closeDrawer()
@@ -91,7 +91,7 @@ fun AppDrawer(
         DrawerButton(
             icon = Icons.Filled.Settings,
             label = stringResource(id = R.string.setting),
-            isSelected = currentRoute == MainDestinations.ABOUT_ROUTE,
+            isSelected = currentRoute == MainDestinations.SETTING_ROUTE,
             action = {
                 navigateToSetting()
                 closeDrawer()

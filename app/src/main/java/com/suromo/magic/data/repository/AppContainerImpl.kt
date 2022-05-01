@@ -1,6 +1,7 @@
 package com.suromo.magic.data.repository
 
 import android.content.Context
+import com.suromo.magic.data.repository.mock.impl.*
 
 /**
  * author : weixingtai
@@ -12,8 +13,12 @@ import android.content.Context
  * Dependency Injection container at the application level.
  */
 interface AppContainer {
-//    val postsRepository: PostsRepository
-//    val interestsRepository: InterestsRepository
+    val postsRepository: PostsRepository
+    val aboutRepository: AboutRepository
+    val disclaimerRepository: DisclaimerRepository
+    val messageRepository: MessageRepository
+    val collectionRepository: CollectionRepository
+    val settingRepository: SettingRepository
 }
 
 /**
@@ -23,11 +28,27 @@ interface AppContainer {
  */
 class AppContainerImpl(private val applicationContext: Context) : AppContainer {
 
-//    override val postsRepository: PostsRepository by lazy {
-//        FakePostsRepository()
-//    }
-//
-//    override val interestsRepository: InterestsRepository by lazy {
-//        FakeInterestsRepository()
-//    }
+    override val postsRepository: PostsRepository by lazy {
+        FakePostsRepository()
+    }
+
+    override val aboutRepository: AboutRepository by lazy {
+        FakeAboutRepository()
+    }
+
+    override val disclaimerRepository: DisclaimerRepository by lazy {
+        FakeDisclaimerRepository()
+    }
+
+    override val messageRepository: MessageRepository by lazy {
+        FakeMessageRepository()
+    }
+
+    override val collectionRepository: CollectionRepository by lazy {
+        FakeCollectionRepository()
+    }
+
+    override val settingRepository: SettingRepository by lazy {
+        FakeSettingRepository()
+    }
 }
