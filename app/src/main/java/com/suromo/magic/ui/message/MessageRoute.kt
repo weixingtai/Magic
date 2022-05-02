@@ -3,9 +3,6 @@ package com.suromo.magic.ui.message
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import com.suromo.magic.data.source.local.impl.disclaimer
-import com.suromo.magic.ui.about.AboutViewModel
-import com.suromo.magic.ui.disclaimer.DisclaimerScreens
 
 /**
  * author : weixingtai

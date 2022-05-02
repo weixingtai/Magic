@@ -3,7 +3,6 @@ package com.suromo.magic.ui.home
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -13,7 +12,7 @@ import androidx.compose.runtime.key
 import com.suromo.magic.ui.article.ArticleScreen
 
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
  * time   : 2022/04/2022/4/29
  * desc   : 首页路由类
@@ -42,23 +41,6 @@ fun HomeRoute(
     )
 }
 
-/**
- * Displays the Home route.
- *
- * This composable is not coupled to any specific state management.
- *
- * @param uiState (state) the data to show on the screen
- * @param isExpandedScreen (state) whether the screen is expanded
- * @param onToggleFavorite (event) toggles favorite for a post
- * @param onSelectPost (event) indicate that a post was selected
- * @param onRefreshPosts (event) request a refresh of posts
- * @param onErrorDismiss (event) error message was shown
- * @param onInteractWithFeed (event) indicate that the feed was interacted with
- * @param onInteractWithArticleDetails (event) indicate that the article details were interacted
- * with
- * @param openDrawer (event) request opening the app drawer
- * @param scaffoldState (state) state for the [Scaffold] component on this screen
- */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeRoute(
@@ -74,9 +56,6 @@ fun HomeRoute(
     openDrawer: () -> Unit,
     scaffoldState: ScaffoldState
 ) {
-    // Construct the lazy list states for the list and the details outside of deciding which one to
-    // show. This allows the associated state to survive beyond that decision, and therefore
-    // we get to preserve the scroll throughout any changes to the content.
     val homeListLazyListState = rememberLazyListState()
     val articleDetailLazyListStates = when (uiState) {
         is HomeUiState.HasPosts -> uiState.postsFeed.allPosts
@@ -87,10 +66,9 @@ fun HomeRoute(
         }
     }
 
-    val homeScreenType = getHomeScreenType(isExpandedScreen, uiState)
-    when (homeScreenType) {
+    when (getHomeScreenType(isExpandedScreen, uiState)) {
         HomeScreenType.FeedWithArticleDetails -> {
-            HomeFeedWithArticleDetailsScreen(
+            HomeDetailsScreen(
                 uiState = uiState,
                 showTopAppBar = !isExpandedScreen,
                 onToggleFavorite = onToggleFavorite,
@@ -107,10 +85,9 @@ fun HomeRoute(
             )
         }
         HomeScreenType.Feed -> {
-            HomeFeedScreen(
+            HomeScreen(
                 uiState = uiState,
-                showTopAppBar = !isExpandedScreen,
-                onToggleFavorite = onToggleFavorite,
+                showTopBar = !isExpandedScreen,
                 onSelectPost = onSelectPost,
                 onRefreshPosts = onRefreshPosts,
                 onErrorDismiss = onErrorDismiss,
@@ -121,7 +98,6 @@ fun HomeRoute(
             )
         }
         HomeScreenType.ArticleDetails -> {
-            // Guaranteed by above condition for home screen type
             check(uiState is HomeUiState.HasPosts)
 
             ArticleScreen(
@@ -137,9 +113,6 @@ fun HomeRoute(
                 )
             )
 
-            // If we are just showing the detail, have a back press switch to the list.
-            // This doesn't take anything more than notifying that we "interacted with the list"
-            // since that is what drives the display of the feed
             BackHandler {
                 onInteractWithFeed()
             }
@@ -147,24 +120,12 @@ fun HomeRoute(
     }
 }
 
-/**
- * A precise enumeration of which type of screen to display at the home route.
- *
- * There are 3 options:
- * - [FeedWithArticleDetails], which displays both a list of all articles and a specific article.
- * - [Feed], which displays just the list of all articles
- * - [ArticleDetails], which displays just a specific article.
- */
 private enum class HomeScreenType {
     FeedWithArticleDetails,
     Feed,
     ArticleDetails
 }
 
-/**
- * Returns the current [HomeScreenType] to display, based on whether or not the screen is expanded
- * and the [HomeUiState].
- */
 @Composable
 private fun getHomeScreenType(
     isExpandedScreen: Boolean,

@@ -1,19 +1,12 @@
-package com.suromo.magic.ui.home
+package com.suromo.magic.ui.home.widget
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Fireplace
 import androidx.compose.material.icons.filled.LocalFireDepartment
-import androidx.compose.material.icons.filled.PersonPin
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -26,20 +19,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import com.suromo.magic.R
 import com.suromo.magic.data.source.local.impl.post4
-import com.suromo.magic.data.source.local.impl.posts
 import com.suromo.magic.ui.bean.Post
-import com.suromo.magic.ui.theme.*
+import com.suromo.magic.ui.theme.MagicTheme
+import com.suromo.magic.ui.theme.Red400
+
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
  * time   : 2022/04/2022/4/29
- * desc   : 首页卡片展示列表
+ * desc   : 首页卡片条目展示
  */
 @Composable
-fun PostCardTop(post: Post, modifier: Modifier = Modifier) {
+fun PostCard(post: Post, modifier: Modifier = Modifier) {
     val typography = MaterialTheme.typography
     Column(
         modifier = modifier
@@ -103,21 +96,21 @@ fun PostCardTop(post: Post, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview("Default colors")
-@Preview("Dark theme", uiMode = UI_MODE_NIGHT_YES)
-@Preview("Font scaling 1.5", fontScale = 1.5f)
+@Preview("Home PostCard")
+@Preview("Home PostCard(Dark)", uiMode = UI_MODE_NIGHT_YES)
+@Preview("Home PostCard(Big Font)", fontScale = 1.5f)
 @Composable
-fun TutorialPreview() {
-    TutorialPreviewTemplate()
+fun PreviewHomePostCard() {
+    HomePostCardTemplate()
 }
 
 @Composable
-fun TutorialPreviewTemplate() {
+fun HomePostCardTemplate() {
     val post = post4
 
     MagicTheme {
         Surface {
-            PostCardTop(post)
+            PostCard(post)
         }
     }
 }

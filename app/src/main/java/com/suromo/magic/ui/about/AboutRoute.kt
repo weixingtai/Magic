@@ -4,8 +4,6 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import com.suromo.magic.data.source.local.impl.about
-import com.suromo.magic.ui.home.HomeViewModel
-import com.suromo.magic.ui.message.MessageScreens
 
 /**
  * aut

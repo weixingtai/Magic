@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
  * time   : 2022/04/2022/4/29
  * desc   : 首页数据处理类
@@ -66,7 +66,7 @@ private data class HomeViewModelState(
 ) {
 
     /**
-     * 将HomeViewModelState转换为界面驱动形式
+     * 将HomeViewModelState转换为界面数据
      */
     fun toUiState(): HomeUiState =
         if (postsFeed == null) {
@@ -115,7 +115,7 @@ class HomeViewModel(
     }
 
     /**
-     * Refresh posts and update the UI state accordingly
+     * 更新界面数据
      */
     fun refreshPosts() {
         viewModelState.update { it.copy(isLoading = true) }
@@ -147,15 +147,14 @@ class HomeViewModel(
     }
 
     /**
-     * Selects the given article to view more information about it.
+     * 用户选择文章
      */
     fun selectArticle(postId: String) {
-        // Treat selecting a detail as simply interacting with it
         interactedWithArticleDetails(postId)
     }
 
     /**
-     * Notify that an error was displayed on the screen
+     * 界面显示错误信息
      */
     fun errorShown(errorId: Long) {
         viewModelState.update { currentUiState ->
@@ -165,7 +164,7 @@ class HomeViewModel(
     }
 
     /**
-     * Notify that the user interacted with the feed
+     * 用户是查看文章列表
      */
     fun interactedWithFeed() {
         viewModelState.update {
@@ -174,7 +173,7 @@ class HomeViewModel(
     }
 
     /**
-     * Notify that the user interacted with the article details
+     * 用户是否查看文章详情
      */
     fun interactedWithArticleDetails(postId: String) {
         viewModelState.update {
@@ -186,7 +185,7 @@ class HomeViewModel(
     }
 
     /**
-     * Notify that the user updated the search query
+     * 更新界面搜索显示
      */
     fun onSearchInputChanged(searchInput: String) {
         viewModelState.update {
@@ -195,7 +194,7 @@ class HomeViewModel(
     }
 
     /**
-     * Factory for HomeViewModel that takes PostsRepository as a dependency
+     * 工厂函数
      */
     companion object {
         fun provideFactory(

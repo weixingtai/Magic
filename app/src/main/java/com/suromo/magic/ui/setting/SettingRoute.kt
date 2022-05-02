@@ -3,8 +3,6 @@ package com.suromo.magic.ui.setting
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import com.suromo.magic.ui.about.AboutViewModel
-import com.suromo.magic.ui.message.MessageScreens
 
 /**
  * author : weixingtai

@@ -9,6 +9,7 @@
     <string name="disclaimer">Disclaimer</string>
     <string name="setting">Setting</string>
     <string name="cant_update_latest_news">Can\'t update latest news</string>
+    <string name="search_home">Search Home</string>
 
     <string name="load_error">Can\'t update latest news</string>
     <string name="retry">Retry</string>

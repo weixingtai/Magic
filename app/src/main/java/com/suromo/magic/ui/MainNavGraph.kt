@@ -67,7 +67,7 @@ fun MainNavGraph(
         }
         composable(MainDestinations.COLLECT_ROUTE) {
             val collectionViewModel: CollectionViewModel = viewModel(
-                factory = CollectionViewModel.provideFactory(appContainer.collectionRepository)
+                factory = CollectionViewModel.provideFactory(appContainer.postsRepository)
             )
             CollectionRoute(
                 collectionViewModel = collectionViewModel,
