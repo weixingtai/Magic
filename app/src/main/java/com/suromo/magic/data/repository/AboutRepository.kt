@@ -16,14 +16,12 @@
 
 package com.suromo.magic.data.repository
 
-import com.suromo.magic.ui.bean.Post
-import com.suromo.magic.ui.bean.PostsFeed
+import com.suromo.magic.ui.bean.About
 import com.suromo.magic.ui.bean.Result
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to the Posts data layer.
  */
 interface AboutRepository {
-
+    suspend fun getAbout(): Result<About>
 }

@@ -1,5 +1,6 @@
 package com.suromo.magic.data.source.local.impl
 
+import androidx.annotation.DrawableRes
 import com.suromo.magic.R
 import com.suromo.magic.ui.bean.*
 import kotlin.Metadata
@@ -1028,39 +1029,23 @@ val posts: PostsFeed =
 val disclaimer: Disclaimer =
     Disclaimer(
         id = "55db18283aca",
-        content = "<div id=\"content_views\" class=\"htmledit_views\">\n" +
-                "                    <div style=\"font-size:16px;\">\n" +
-                " <p>版权声明与免责声明的区别</p>\n" +
-                " <p>版权声明与免责声明的区别</p>\n" +
-                " <p>版权声明就是指权利人对自己创作或获得许可作品权利的一种口头或书面主张，一般包括权利归属、作品使用许可方式、责任追究等方面的内容。如平时看电影时前面会有一个“警告”的片断，其实就是版权声明;版权声明用得比较普遍的领域是网站，一般在网站的页脚就有“版权声明”。</p>\n" +
-                " <p>免责声明(Disclaimer)，即法律明文规定的当事人对其不履行合同不承担违约责任的条件 ，Disclaimer 意思是放弃;拒绝;不承诺</p>\n" +
-                " <p>免责条件与免责条款</p>\n" +
-                " <p>(一)免责条件：即法律明文规定的当事人对其不履行合同不承担违约责任的条件。我国法律规定的免责条件主要有：</p>\n" +
-                " <p>1.不可抗力：《合同法》第117条规定，因不可抗力不能履行合同的，根据不可抗力的影响，部分或者全部免除责任，但法律另有规定的`除外。当事人迟延履行后发生不可抗力的，不能免除责任。本法所称不可抗力，是指不能预见、不能避免并不能克服的客观情况。</p>\n" +
-                " <p>2.货物本身的自然性质、货物的合理损耗：见《合同法》第311条。</p>\n" +
-                " <p>3.债权人的过错：见《合同法》第311条、第370条。</p>\n" +
-                " <p>(二)免责条款</p>\n" +
-                " <p>1.免责条款的概念：免责条款，就是当事人以协议排除或限制其未来责任的合同条款。其一，免责条款是合同的组成部分，是一种合同条款;其二，免责条款的提出必须是明示的，不允许以默示方式作出，也不允许法官推定免责条款的存在。</p>\n" +
-                " <p>2.免责条款的有效与无效</p>\n" +
-                " <p>(1)基于现行法的规定确定免责条款的有效或者无效。免责条款以意思表示为要素，以排除或限制当事人的未来责任为目的，因而属于一种民事行为，应受《合同法》第52条、第53条、第54条、第47条、第48条、第51条和第40条的规定调整 。</p>\n" +
-                " <p>(2)基于风险分配理论确定免责条款的有效或者无效</p>\n" +
-                " <p>(3)根据过错程度确定免责条款的有效或者无效，《合同法》第40条、第53条。</p>\n" +
-                " <p>(4)根据违约的轻重确定免责条款的有效或者无效 ，我国没有采用。</p>\n" +
-                " <p>网站版权声明范文</p>\n" +
-                " <p>版权声明</p>\n" +
-                " <p>本网站(www.xxxxxx)刊载的所有内容，包括文字、图片、音频、视频、软件、程序、以及网页版式设计等均在网上搜集。</p>\n" +
-                " <p>访问者可将本网站提供的内容或服务用于个人学习、研究或欣赏，以及其他非商业性或非盈利性用途，但同时应遵守著作权法及其他相关法律的规定，不得侵犯本网站及相关权利人的合法权利。除此以外，将本网站任何内容或服务用于其他用途时，须征得本网站及相关权利人的书面许可，并支付报酬。</p>\n" +
-                " <p>本网站内容原作者如不愿意在本网站刊登内容，请及时通知本站，予以删除。</p>\n" +
-                " <p>地址：</p>\n" +
-                " <p>电话：</p>\n" +
-                " <p>传真：</p>\n" +
-                " <p>电子邮箱：</p>\n" +
-                " <p>版权声明组成格式</p>\n" +
-                " <p>1，内容</p>\n" +
-                " <p>2，地址</p>\n" +
-                " <p>3，电话</p>\n" +
-                " <p>4，邮箱</p>\n" +
-                " <p>【版权声明与免责声明的区别】相关文章：</p>\n" +
-                "</div>\n" +
-                "                </div>",
+        content = "<p>&nbsp;&nbsp;&nbsp;&nbsp;Based on information from California Regional Multiple Listing Service, Inc. as of 2022. This information is for your personal, non-commercial use and may not be used for any purpose other than to identify prospective properties you may be interested in purchasing. Display of MLS data is usually deemed reliable but is NOT quaranteed accurate by the MLS. Buyers are responsible for verifying the accuracy of all information and should investigate the data themselves or retain appropriate professionals. Information from sources other than the Listing Agent may have been included in the MLS data. Unless otherwise specified in writing, Broker/Agent has not and will not verify any information obtained from other sources. The Broker/Agent providing the information contained herein may or may not have been the Listing and/or Selling Agent.</p>",
     )
+
+val about: About =
+    About(
+    id = "55db18283aca",
+    url = "https://medium.com/androiddevelopers/collections-and-sequences-in-kotlin-55db18283aca",
+    name = "Samuel",
+    occupation = "listing agent",
+    introduction = "    \"I am a Youtuber living in Los Angeles. Join me and partner Mikey on our journey to see some of the most beautiful mansions, yachts and luxury experiences around the world!\"",
+    email = "xingtai.wei@icloud.com",
+    youtube = "Samuel_Ever_Onward",
+    instagram = "Samuel_Ever_Onward",
+    facebook = "Samuel_Ever_Onward",
+    tiktok = "Samuel_Ever_Onward",
+    wechat = "Samuel_Ever_Onward",
+    twitter = "Samuel_Ever_Onward",
+    imageId = R.drawable.post_5,
+    imageThumbId = R.drawable.post_5_thumb
+)

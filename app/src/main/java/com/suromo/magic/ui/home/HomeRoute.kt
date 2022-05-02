@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import com.suromo.magic.ui.article.ArticleScreen
 
 /**
  * author : weixingtai
@@ -123,18 +124,18 @@ fun HomeRoute(
             // Guaranteed by above condition for home screen type
             check(uiState is HomeUiState.HasPosts)
 
-//            ArticleScreen(
-//                post = uiState.selectedPost,
-//                isExpandedScreen = isExpandedScreen,
-//                onBack = onInteractWithFeed,
-//                isFavorite = uiState.favorites.contains(uiState.selectedPost.id),
-//                onToggleFavorite = {
-//                    onToggleFavorite(uiState.selectedPost.id)
-//                },
-//                lazyListState = articleDetailLazyListStates.getValue(
-//                    uiState.selectedPost.id
-//                )
-//            )
+            ArticleScreen(
+                post = uiState.selectedPost,
+                isExpandedScreen = isExpandedScreen,
+                onBack = onInteractWithFeed,
+                isFavorite = uiState.favorites.contains(uiState.selectedPost.id),
+                onToggleFavorite = {
+                    onToggleFavorite(uiState.selectedPost.id)
+                },
+                lazyListState = articleDetailLazyListStates.getValue(
+                    uiState.selectedPost.id
+                )
+            )
 
             // If we are just showing the detail, have a back press switch to the list.
             // This doesn't take anything more than notifying that we "interacted with the list"
