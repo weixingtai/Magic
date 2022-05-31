@@ -32,7 +32,7 @@ import com.suromo.magic.R
 import com.suromo.magic.ui.theme.MagicTheme
 
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
  * time   : 2022/04/2022/4/30
  * desc   :

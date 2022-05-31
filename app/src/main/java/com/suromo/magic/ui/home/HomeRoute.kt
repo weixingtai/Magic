@@ -68,7 +68,7 @@ fun HomeRoute(
 
     when (getHomeScreenType(isExpandedScreen, uiState)) {
         HomeScreenType.FeedWithArticleDetails -> {
-            HomeDetailsScreen(
+            HomeDetailScreen(
                 uiState = uiState,
                 showTopAppBar = !isExpandedScreen,
                 onToggleFavorite = onToggleFavorite,

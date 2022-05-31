@@ -74,9 +74,7 @@ fun HomeRoute(
     openDrawer: () -> Unit,
     scaffoldState: ScaffoldState
 ) {
-    // Construct the lazy list states for the list and the details outside of deciding which one to
-    // show. This allows the associated state to survive beyond that decision, and therefore
-    // we get to preserve the scroll throughout any changes to the content.
+
     val homeListLazyListState = rememberLazyListState()
     val articleDetailLazyListStates = when (uiState) {
         is CollectionUiState.HasPosts -> uiState.postsFeed.allPosts
@@ -87,8 +85,7 @@ fun HomeRoute(
         }
     }
 
-    val collectionScreenType = getCollectionScreenType(isExpandedScreen, uiState)
-    when (collectionScreenType) {
+    when (getCollectionScreenType(isExpandedScreen, uiState)) {
         CollectionScreenType.FeedWithArticleDetails -> {
             CollectionFeedWithArticleDetailsScreen(
                 uiState = uiState,
