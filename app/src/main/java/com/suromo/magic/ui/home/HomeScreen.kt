@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.suromo.common.log.MLog
 import com.suromo.magic.data.repository.mock.impl.BlockingFakePostsRepository
 import com.suromo.magic.ui.bean.Result
 import com.suromo.magic.ui.home.widget.HomePostList
@@ -58,6 +59,7 @@ fun HomeScreen(
             searchInput = searchInput,
             onSearchInputChanged = onSearchInputChanged
         )
+        MLog.d("here is home screen")
     }
 }
 

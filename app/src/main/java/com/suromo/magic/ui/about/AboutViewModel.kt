@@ -21,7 +21,6 @@ class AboutViewModel (
         fun provideFactory(
             aboutRepository: AboutRepository,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return AboutViewModel(aboutRepository) as T
             }

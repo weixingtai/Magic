@@ -2,6 +2,7 @@ package com.suromo.common
 
 import android.app.Application
 import com.orhanobut.logger.*
+import com.suromo.common.log.MLog
 
 /**
  * author : weixingtai
@@ -17,20 +18,7 @@ open class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        initLogger()
+        MLog.initLogger()
     }
 
-    /**
-     * 初始化logger日志工具，自定义tag为MLog,debug版本打开日志，release版本关闭日志
-     */
-    private fun initLogger(){
-        val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
-            .tag("MLog")
-            .build()
-        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
-            override fun isLoggable(priority: Int, tag: String?): Boolean {
-                return BuildConfig.DEBUG
-            }
-        })
-    }
 }

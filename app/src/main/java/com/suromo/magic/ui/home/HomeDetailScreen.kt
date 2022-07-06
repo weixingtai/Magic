@@ -38,7 +38,7 @@ import kotlinx.coroutines.isActive
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeDetailsScreen(
+fun HomeDetailScreen(
     uiState: HomeUiState,
     showTopAppBar: Boolean,
     onToggleFavorite: (String) -> Unit,
