@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
  * time  : 2022/04/26
  * desc  : Retrofit网络请求基类，增加可动态修改baseUrl

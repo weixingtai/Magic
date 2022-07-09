@@ -7,7 +7,7 @@ import com.suromo.common.BuildConfig
 /**
  * author : Samuel
  * e-mail : xingtai.wei@icloud.com
- * time   : 2022/07/2022/7/2
+ * time   : 2022/7/2
  * desc   : 日志框架，复用Logger
  *          1.需在依赖中引入Logger日志框架 implementation 'com.orhanobut:logger:2.2.0'；
  *          2.需在Application基类中进行初始化，调用initLogger()方法，更多功能可在此方法中增加；

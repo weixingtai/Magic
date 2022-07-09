@@ -5,9 +5,9 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 /**
- * author : weixingtai
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
- * time  : 2022/04/2022/4/26
+ * time  : 2022/4/26
  * desc  :
  */
 interface NetworkService {
