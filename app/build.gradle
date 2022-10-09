@@ -80,7 +80,6 @@ android {
 dependencies {
 
     implementation project(path: ':lib_common')
-    implementation project(path: ':common')
 
     implementation "androidx.core:core-ktx:$des.core_ktx_version"
 
@@ -134,7 +133,7 @@ dependencies {
     //hilt依赖注入
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$des.hilt_version"
 
-    testImplementation "junit:junit:des.junit_version"
+    testImplementation "junit:junit:$des.junit_version"
     androidTestImplementation "androidx.test:core:$des.test_version"
     androidTestImplementation "androidx.test:rules:$des.test_version"
     androidTestImplementation "androidx.test:runner:$des.test_version"

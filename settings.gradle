@@ -23,5 +23,4 @@ dependencyResolutionManagement {
 rootProject.name = "Magic"
 include ':app'
 include ':lib_common'
-include ':common'
 include ':module_user'

@@ -4,9 +4,9 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
-import com.suromo.common.data.source.remote.BaseNetworkManager
-import com.suromo.common.data.source.remote.interceptor.CacheInterceptor
-import com.suromo.common.util.AppUtil
+import com.suromo.lib_common.data.source.remote.BaseNetworkManager
+import com.suromo.lib_common.data.source.remote.interceptor.CacheInterceptor
+import com.suromo.lib_common.util.AppUtil
 import com.suromo.magic.data.source.remote.interceptor.HeadInterceptor
 import com.suromo.magic.data.source.remote.interceptor.TokenExpireInterceptor
 import okhttp3.Cache
