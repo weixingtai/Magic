@@ -12,7 +12,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * time   : 2022/04/2022/4/29
  * desc   :
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 class FakeAboutRepository : AboutRepository {
     override suspend fun getAbout(): Result<About> {
         return Result.Success(about)

@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * time   : 2022/04/2022/4/30
  * desc   :
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 class FakeCollectionRepository : CollectionRepository {
 
 }

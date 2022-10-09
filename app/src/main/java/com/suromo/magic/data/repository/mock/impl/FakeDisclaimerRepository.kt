@@ -21,7 +21,6 @@ import kotlinx.coroutines.withContext
  * time   : 2022/04/2022/4/30
  * desc   :
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 class FakeDisclaimerRepository : DisclaimerRepository {
     override suspend fun getDisclaimer(): Result<Disclaimer> {
         return Result.Success(disclaimer)

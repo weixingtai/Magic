@@ -4,7 +4,6 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
-import com.orhanobut.logger.Logger
 import com.suromo.common.data.source.remote.BaseNetworkManager
 import com.suromo.common.data.source.remote.interceptor.CacheInterceptor
 import com.suromo.common.util.AppUtil
@@ -56,7 +55,7 @@ class NetworkManager : BaseNetworkManager() {
             // 日志拦截器
             .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
                 override fun log(message: String) {
-                    Logger.d(message)
+//                    Logger.d(message)
                 }
             }).setLevel(HttpLoggingInterceptor.Level.BODY))
             //超时时间 连接、读、写

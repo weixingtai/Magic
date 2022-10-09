@@ -1,5 +1,13 @@
 package com.suromo.magic.ui.demo
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,9 +27,15 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 fun PreviewMaterialDemoScreen() {
-    Column {
-        ShowContent()
-        ShowScaffold()
+//    Column {
+//        ShowContent()
+//        ShowScaffold()
+//    }
+    AnimatedVisibility(visible = true,
+        enter = fadeIn(animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy,)),
+        exit = fadeOut()
+    ) {
+        Text(text = "hello world")
     }
 }
 

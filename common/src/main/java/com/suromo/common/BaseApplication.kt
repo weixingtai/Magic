@@ -1,8 +1,6 @@
 package com.suromo.common
 
 import android.app.Application
-import com.orhanobut.logger.*
-import com.suromo.common.log.MLog
 
 /**
  * author : weixingtai
@@ -18,7 +16,7 @@ open class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        MLog.initLogger()
+//        MLog.initLogger()
     }
 
 }

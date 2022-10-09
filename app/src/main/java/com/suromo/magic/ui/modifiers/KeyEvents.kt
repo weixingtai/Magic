@@ -10,7 +10,6 @@ import androidx.compose.ui.input.key.*
  * time   : 2022/04/2022/4/29
  * desc   :
  */
-@OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.interceptKey(key: Key, onKeyEvent: () -> Unit): Modifier {
     return this.onPreviewKeyEvent {
         if (it.key == key && it.type == KeyEventType.KeyUp) { // fire onKeyEvent on KeyUp to prevent duplicates

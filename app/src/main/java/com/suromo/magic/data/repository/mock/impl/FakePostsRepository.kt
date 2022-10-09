@@ -21,7 +21,6 @@ import kotlinx.coroutines.withContext
  * time   : 2022/04/2022/4/29
  * desc   :
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 class FakePostsRepository : PostsRepository {
 
     // for now, store these in memory
