@@ -39,6 +39,40 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        main {
+            if (libs.isAddUserLib) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file(sign.file)
+            storePassword sign.storePassword
+            keyAlias sign.keyAlias
+            keyPassword sign.keyPassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled true // 混淆
+            debuggable true
+        }
+
+        release {
+            signingConfig signingConfigs.releaseConfig //签名
+            minifyEnabled true // 混淆
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -56,6 +90,15 @@ android {
 }
 
 dependencies {
+    //作为library运行时才需要依赖的
+    if (libs.isAddUserLib) {
+        compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+    } else {
+        //独立运行时需要依赖的
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+    }
+
+    implementation project(path: ':lib_common')
 
     implementation "androidx.core:core-ktx:$des.core_ktx_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$des.lifecycle_runtime_ktx_version"
