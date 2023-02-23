@@ -12,8 +12,12 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class MainApplication : Application() {
 
+    companion object {
+        lateinit var mApplicationContext:MainApplication
+    }
+
     override fun onCreate() {
         super.onCreate()
-
+        mApplicationContext = this
     }
 }

@@ -15,6 +15,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.suromo.magic.net.response.Lottery
 import com.suromo.magic.ui.theme.MagicTheme
 import com.suromo.magic.vm.LotteryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting()
                 }
             }
         }
@@ -42,17 +45,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(
-    name: String,
     viewModel: LotteryViewModel = hiltViewModel(),
 ) {
-    val lotteries by viewModel.lotteries.collectAsState(initial = emptyList())
-    Text(text = "Hello $lotteries!")
+//    val lotteries: LazyPagingItems<Lottery> = viewModel.lotteries.collectAsLazyPagingItems()
+//    Text(text = "Hello ${lotteries.itemCount}!")
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MagicTheme {
-        Greeting("Android")
+        Greeting()
     }
 }
