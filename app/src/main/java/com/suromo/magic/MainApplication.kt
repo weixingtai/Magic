@@ -1,21 +1,19 @@
 package com.suromo.magic
 
-import com.suromo.lib_common.BaseApplication
-import com.suromo.magic.data.repository.AppContainer
-import com.suromo.magic.data.repository.AppContainerImpl
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
 /**
- * author : S
+ * author : Samuel
  * e-mail : xingtai.wei@icloud.com
- * time  : 2022/04/26
- * desc  : 应用基类
+ * time   : 2023/2/23 下午7:24
+ * desc   :
  */
-class MainApplication : BaseApplication() {
-
-    lateinit var container: AppContainer
+@HiltAndroidApp
+class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        container = AppContainerImpl(this)
+
     }
 }

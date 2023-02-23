@@ -2,146 +2,86 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-}
-
-static def releaseTime() {
-    return new Date().format("yyyyMMdd-HHmmss", TimeZone.getTimeZone("GMT+8"))
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    compileSdk cfgs.compileSdkVersion
+    namespace 'com.suromo.magic'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.suromo.magic"
-        minSdk cfgs.minSdkVersion
-        targetSdk cfgs.targetSdkVersion
-        versionCode cfgs.versionCode
-        versionName cfgs.versionName
+        minSdk 29
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
 
-        testInstrumentationRunner cfgs.testInstrumentationRunner
-
-        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
-        }
-
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-        }
-    }
-
-    signingConfigs {
-        releaseConfig {
-            storeFile file(sign.file)
-            storePassword sign.storePassword
-            keyAlias sign.keyAlias
-            keyPassword sign.keyPassword
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled true // 混淆
-            shrinkResources true // 去除无用资源 与lint不同
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "Magic_${defaultConfig.versionName}_${releaseTime()}.apk"
-                }
-            }
-        }
+    }
+
+    kapt {
+        correctErrorTypes true
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "$des.compose_compiler_version"
+        kotlinCompilerExtensionVersion '1.2.0'
     }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.suromo.magic'
 }
 
 dependencies {
 
-    implementation project(path: ':lib_common')
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation "androidx.compose.ui:ui:1.3.3"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.3.3"
+    implementation 'androidx.compose.material3:material3:1.0.0-alpha11'
+    //room
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.0"
+    implementation "androidx.room:room-ktx:2.5.0"
+    annotationProcessor "androidx.room:room-compiler:2.5.0"
+    testImplementation "androidx.room:room-testing:2.5.0"
 
-    implementation "androidx.core:core-ktx:$des.core_ktx_version"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$des.jetbrains_stdlib_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$des.jetbrains_coroutines_version"
-    implementation "androidx.appcompat:appcompat:$des.appcompat_version"
-    implementation "androidx.activity:activity-ktx:$des.activity_ktx_version"
-    implementation "androidx.activity:activity-compose:$des.activity_compose_version"
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.44.2"
+    kapt "com.google.dagger:hilt-compiler:2.44.2"
 
 
-    //声明式UI框架Compose
-    implementation "androidx.compose.runtime:runtime:$des.compose_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$des.compose_version"
-    implementation "androidx.compose.ui:ui:$des.compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$des.compose_version"
-    implementation "androidx.compose.material:material:$des.compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$des.compose_icons_extended_version"
-    implementation "androidx.compose.foundation:foundation-layout:$des.compose_foundation_version"
-    implementation "androidx.compose.animation:animation:$des.compose_version"
-    implementation "androidx.navigation:navigation-compose:$des.compose_navigation_version"
+    testImplementation 'junit:junit:4.13.2'
 
-//    implementation 'com.orhanobut:logger:2.2.0'
 
-    //网络请求框架 okhttp3+retrofit2
-    implementation "com.squareup.okhttp3:logging-interceptor:$des.okhttp_version"
-    implementation "com.squareup.retrofit2:retrofit:$des.retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$des.retrofit_version"
-    implementation "me.jessyan:retrofit-url-manager:$des.retrofit_url_version"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.3.3"
 
-    //lifecycle生命周期管理
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$des.lifecycle_runtime_ktx_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$des.lifecycle_viewmodel_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$des.lifecycle_viewmodel_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$des.lifecycle_viewmodel_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$des.lifecycle_viewmodel_version"
 
-    //room数据库
-    implementation "androidx.room:room-runtime:$des.room_version"
-    implementation "androidx.room:room-ktx:$des.room_version"
 
-    //cookie持久化
-    implementation "com.github.franmontiel:PersistentCookieJar:$des.persistent_cookie_version"
-
-    //compose更新系统栏颜色和下拉刷新
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$des.accompanist_version"
-    implementation "com.google.accompanist:accompanist-swiperefresh:$des.accompanist_version"
-
-    //compose窗口管理器
-    implementation "androidx.window:window:$des.window_version"
-
-    //hilt依赖注入
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$des.hilt_version"
-
-    testImplementation "junit:junit:$des.junit_version"
-    androidTestImplementation "androidx.test:core:$des.test_version"
-    androidTestImplementation "androidx.test:rules:$des.test_version"
-    androidTestImplementation "androidx.test:runner:$des.test_version"
-    androidTestImplementation "androidx.compose.ui:ui-test:$des.compose_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$des.compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$des.compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$des.compose_version"
-
-    kapt "androidx.room:room-compiler:$des.room_version"
-    kapt "androidx.hilt:hilt-compiler:$des.hilt_compiler_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.3.3"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.3.3"
 }

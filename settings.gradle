@@ -1,12 +1,8 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
-        maven{ url 'https://maven.aliyun.com/repository/jcenter' }
-        maven {
-            url 'https://jitpack.io'
-        }
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -14,13 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven{ url 'https://maven.aliyun.com/repository/jcenter' }
-        maven {
-            url 'https://jitpack.io'
-        }
     }
 }
 rootProject.name = "Magic"
 include ':app'
-include ':lib_common'
-include ':module_user'
