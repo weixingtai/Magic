@@ -5,10 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.suromo.magic.db.dao.LotteryDao
 import com.suromo.magic.db.entity.Lottery
 import com.suromo.magic.db.util.Converters
 import com.suromo.magic.db.util.DATABASE_NAME
+import com.suromo.magic.log.MLog
+import com.suromo.magic.worker.MagicDatabaseWorker
 
 /**
  * author : Samuel
@@ -26,6 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile private var instance: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
+            MLog.d("database getInstance")
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
@@ -33,17 +39,17 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-//                .addCallback(
-//                    object : RoomDatabase.Callback() {
-//                        override fun onCreate(db: SupportSQLiteDatabase) {
-//                            super.onCreate(db)
-//                            val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>()
-//                                .setInputData(workDataOf(KEY_FILENAME to PLANT_DATA_FILENAME))
-//                                .build()
-//                            WorkManager.getInstance(context).enqueue(request)
-//                        }
-//                    }
-//                )
+                .addCallback(
+                    object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            MLog.d("buildDatabase")
+                            val request = OneTimeWorkRequestBuilder<MagicDatabaseWorker>()
+                                .build()
+                            WorkManager.getInstance(context).enqueue(request)
+                        }
+                    }
+                )
                 .build()
         }
     }

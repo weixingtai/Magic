@@ -6,4 +6,4 @@ package com.suromo.magic.db.util
  * time   : 2023/2/23 下午7:08
  * desc   :
  */
-const val DATABASE_NAME = "lottery"
+const val DATABASE_NAME = "lottery-db"

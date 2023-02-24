@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface LotteryDao {
-    @Query("SELECT * FROM lottery ORDER BY numbers")
+    @Query("SELECT * FROM lottery ORDER BY longperiod")
     fun getLotteries(): Flow<List<Lottery>>
 
     @Query("SELECT * FROM lottery WHERE period = :period ORDER BY numbers")
@@ -26,4 +26,6 @@ interface LotteryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(lotteries: List<Lottery>)
+    @Query("DELETE FROM lottery")
+    suspend fun clearAll()
 }

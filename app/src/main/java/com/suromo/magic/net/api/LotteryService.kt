@@ -5,6 +5,7 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.suromo.magic.MainApplication.Companion.mApplicationContext
 import com.suromo.magic.net.interceptor.HeadInterceptor
+import com.suromo.magic.net.response.Lotteries
 import com.suromo.magic.net.response.LotteryResponse
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -28,7 +29,7 @@ interface LotteryService {
     suspend fun getLotteryHistoryByYear(
         @Query("lotteryInfoId") infoId: Int = 22,
         @Query("year") year: Int = 2023
-    ): LotteryResponse
+    ): LotteryResponse<Lotteries>
 
 
 

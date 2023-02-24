@@ -1,13 +1,9 @@
 package com.suromo.magic.vm
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
-import com.suromo.magic.db.entity.Lottery
+import androidx.lifecycle.asLiveData
 import com.suromo.magic.repo.LotteryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -18,15 +14,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class LotteryViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     repository: LotteryRepository
 ) : ViewModel() {
 
-    private var year:Int? = savedStateHandle["year"]
-
-//    val lotteries = repository.getLotteryHistoryByYear(year?: 2023).cachedIn(viewModelScope)
-    val lotteries = repository.getLotteries()
-
-
+    val lotteries = repository.getLotteries().asLiveData()
 
 }

@@ -94,6 +94,17 @@ dependencies {
     // liveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     implementation 'com.kunminx.archi:unpeek-livedata:4.4.1-beta1'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.4.0-alpha03'
+
+    //协程
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    //worker
+    implementation "androidx.work:work-runtime-ktx:2.8.0"
+    androidTestImplementation "androidx.work:work-testing:2.8.0"
+
+    //logger
+    implementation 'com.orhanobut:logger:2.2.0'
 
     testImplementation 'junit:junit:4.13.2'
 

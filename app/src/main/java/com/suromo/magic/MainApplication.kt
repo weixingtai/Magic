@@ -1,6 +1,7 @@
 package com.suromo.magic
 
 import android.app.Application
+import com.suromo.magic.log.MLog
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -19,5 +20,8 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         mApplicationContext = this
+
+        MLog.initLogger()
     }
+
 }
