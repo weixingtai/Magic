@@ -1,6 +1,8 @@
 package com.suromo.magic.repo
 
 import com.suromo.magic.db.dao.LotteryDao
+import com.suromo.magic.ui.bean.RequestResult
+import com.suromo.magic.ui.view.home.Recommend
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,14 +19,8 @@ class LotteryRepository @Inject constructor(
 
     fun getLotteries() = dao.getLotteries()
 
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile private var instance: LotteryRepository? = null
-
-        fun getInstance(lotteryDao: LotteryDao) =
-            instance ?: synchronized(this) {
-                instance ?: LotteryRepository(lotteryDao).also { instance = it }
-            }
+    fun getRecommend() : RequestResult<Recommend>{
+        val recommend = Recommend(period = "2013")
+        return RequestResult.Success(recommend)
     }
 }
