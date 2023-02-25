@@ -19,6 +19,6 @@ fun HomeContentScreen(
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
 
-    Text(text = "${recommend.period}")
+    Text(text = recommend.period)
 
 }

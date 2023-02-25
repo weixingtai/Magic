@@ -27,7 +27,7 @@ import com.suromo.magic.ui.theme.MagicTheme
 fun DrawerIcon(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(R.drawable.ic_drawer),
-        contentDescription = null, // decorative
+        contentDescription = null,
         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
         modifier = modifier
     )

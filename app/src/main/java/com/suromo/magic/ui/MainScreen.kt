@@ -1,12 +1,16 @@
 package com.suromo.magic.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material.DrawerState
+import androidx.compose.material.DrawerValue
+import androidx.compose.material.ModalDrawer
+import androidx.compose.material.rememberDrawerState
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.suromo.magic.ui.theme.MagicTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -15,66 +19,66 @@ import kotlinx.coroutines.launch
  * time   : 2023/2/25
  * desc   :
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     widthSizeClass: WindowWidthSizeClass
 ) {
-    val navController = rememberNavController()
-    val navigationAction = remember(navController) {
-        MainNavigationAction(navController)
-    }
+    MagicTheme {
 
-    val coroutineScope = rememberCoroutineScope()
+        val navController = rememberNavController()
+        val navigationAction = remember(navController) {
+            MainNavigationAction(navController)
+        }
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute =
-        navBackStackEntry?.destination?.route ?: MainDestinations.ROUTE_HOME
+        val coroutineScope = rememberCoroutineScope()
 
-    val isExpandedScreen = widthSizeClass == WindowWidthSizeClass.Expanded
-    val sizeAwareDrawerState = rememberSizeAwareDrawerState(isExpandedScreen)
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute =
+            navBackStackEntry?.destination?.route ?: MainDestinations.ROUTE_HOME
 
-    ModalNavigationDrawer(
-        drawerContent = {
-            MainDrawer(
-                currentRoute = currentRoute,
-                navigateToHome = navigationAction.navigateToHome,
-                closeDrawer = { coroutineScope.launch { sizeAwareDrawerState.close() } },
-                modifier = Modifier
-                    .statusBarsPadding()
-                    .navigationBarsPadding()
-            )
-        },
-        drawerState = sizeAwareDrawerState,
-        gesturesEnabled = !isExpandedScreen
-    ) {
-        Row(
-            Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .windowInsetsPadding(
-                    WindowInsets
-                        .navigationBars
-                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
-                )
-        ) {
-            if (isExpandedScreen) {
-                AppNavRail(
+        val isExpandedScreen = widthSizeClass == WindowWidthSizeClass.Expanded
+        val sizeAwareDrawerState = rememberSizeAwareDrawerState(isExpandedScreen)
+
+        ModalDrawer(
+            drawerContent = {
+                MainDrawer(
                     currentRoute = currentRoute,
                     navigateToHome = navigationAction.navigateToHome,
+                    closeDrawer = { coroutineScope.launch { sizeAwareDrawerState.close() } },
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .navigationBarsPadding()
+                )
+            },
+            drawerState = sizeAwareDrawerState,
+            gesturesEnabled = !isExpandedScreen
+        ) {
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .windowInsetsPadding(
+                        WindowInsets
+                            .navigationBars
+                            .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+                    )
+            ) {
+                if (isExpandedScreen) {
+                    AppNavRail(
+                        currentRoute = currentRoute,
+                        navigateToHome = navigationAction.navigateToHome,
+                    )
+                }
+                MainNavGraph(
+                    isExpandedScreen = isExpandedScreen,
+                    navController = navController,
+                    openDrawer = { coroutineScope.launch { sizeAwareDrawerState.open() } },
                 )
             }
-            MainNavGraph(
-                isExpandedScreen = isExpandedScreen,
-                navController = navController,
-                openDrawer = { coroutineScope.launch { sizeAwareDrawerState.open() } },
-            )
         }
     }
-
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun rememberSizeAwareDrawerState(isExpandedScreen: Boolean): DrawerState {
     val drawerState = rememberDrawerState(DrawerValue.Closed)

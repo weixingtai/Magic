@@ -34,7 +34,7 @@ fun HomeScreen(
             if (showTopAppBar) {
                 HomeTopBarScreen(
                     openDrawer = openDrawer,
-                    elevation = 4.dp
+                    elevation = 1.dp
                 )
             }
         },
