@@ -1,5 +1,6 @@
 package com.suromo.magic.ui.view.home
 
+import com.suromo.magic.db.entity.Lottery
 import com.suromo.magic.ui.bean.ErrorMessage
 
 /**
@@ -13,13 +14,13 @@ sealed interface HomeUiState {
     val isLoading: Boolean
     val errorMessages: List<ErrorMessage>
 
-    data class NoRecommend(
+    data class NoLotteries(
         override val isLoading: Boolean,
         override val errorMessages: List<ErrorMessage>
     ) : HomeUiState
 
-    data class HasRecommend(
-        val recommend: Recommend,
+    data class HasLotteries(
+        val lotteries: List<Lottery>,
         override val isLoading: Boolean,
         override val errorMessages: List<ErrorMessage>
     ) :HomeUiState

@@ -21,7 +21,7 @@ import com.suromo.magic.ui.widget.MagicSnackbarHost
 fun HomeScreen(
     uiState: HomeUiState,
     showTopAppBar: Boolean,
-    onRefreshRecommend: () -> Unit,
+    onRefreshLotteries: () -> Unit,
     onErrorDismiss: (Long) -> Unit,
     openDrawer: () -> Unit,
     scaffoldState: ScaffoldState,
@@ -43,11 +43,11 @@ fun HomeScreen(
         val contentModifier = Modifier.padding(innerPadding)
         HomeLoadingScreen(
             uiState = uiState,
-            onRefreshRecommend = onRefreshRecommend,
+            onRefreshLotteries = onRefreshLotteries,
             modifier = contentModifier
-        ) { hasRecommendUiState, modifier ->
+        ) { hasLotteriesUiState, modifier ->
             HomeContentScreen(
-                recommend = hasRecommendUiState.recommend,
+                lotteries = hasLotteriesUiState.lotteries,
                 modifier = modifier)
         }
     }
@@ -57,7 +57,7 @@ fun HomeScreen(
         val errorMessageText: String = stringResource(errorMessage.messageId)
         val retryMessageText = stringResource(id = R.string.retry)
 
-        val onRefreshRecommendState by rememberUpdatedState(onRefreshRecommend)
+        val onRefreshLotteriesState by rememberUpdatedState(onRefreshLotteries)
         val onErrorDismissState by rememberUpdatedState(onErrorDismiss)
 
         LaunchedEffect(errorMessageText, retryMessageText, scaffoldState) {
@@ -66,7 +66,7 @@ fun HomeScreen(
                 actionLabel = retryMessageText
             )
             if (snackbarResult == SnackbarResult.ActionPerformed) {
-                onRefreshRecommendState()
+                onRefreshLotteriesState()
             }
             onErrorDismissState(errorMessage.id)
         }

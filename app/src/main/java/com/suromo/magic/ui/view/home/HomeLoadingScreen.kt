@@ -24,16 +24,16 @@ import com.suromo.magic.R
 @Composable
 fun HomeLoadingScreen(
     uiState: HomeUiState,
-    onRefreshRecommend: () -> Unit,
+    onRefreshLotteries: () -> Unit,
     modifier: Modifier,
-    hasRecommendContent: @Composable (
-        uiState: HomeUiState.HasRecommend,
+    hasLotteriesContent: @Composable (
+        uiState: HomeUiState.HasLotteries,
         modifier: Modifier
     ) -> Unit
 ) {
     val empty = when(uiState) {
-        is HomeUiState.HasRecommend -> false
-        is HomeUiState.NoRecommend -> uiState.isLoading
+        is HomeUiState.HasLotteries -> false
+        is HomeUiState.NoLotteries -> uiState.isLoading
     }
     if (empty) {
         Box(
@@ -46,16 +46,16 @@ fun HomeLoadingScreen(
     } else {
         SwipeRefresh(
             state = rememberSwipeRefreshState(uiState.isLoading),
-            onRefresh = onRefreshRecommend,
+            onRefresh = onRefreshLotteries,
             content = {
                 when (uiState) {
-                    is HomeUiState.HasRecommend -> {
-                        hasRecommendContent(uiState, modifier)
+                    is HomeUiState.HasLotteries -> {
+                        hasLotteriesContent(uiState, modifier)
                     }
-                    is HomeUiState.NoRecommend -> {
+                    is HomeUiState.NoLotteries -> {
                         if (uiState.errorMessages.isEmpty()) {
                             TextButton(
-                                onClick = onRefreshRecommend,
+                                onClick = onRefreshLotteries,
                                 modifier.fillMaxSize()
                             ) {
                                 Text(

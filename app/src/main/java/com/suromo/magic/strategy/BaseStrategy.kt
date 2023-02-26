@@ -11,6 +11,8 @@ open class BaseStrategy {
     val historyList = mutableListOf<OpenResult>()
     val strategyList = mutableListOf<OpenResult>()
 
+    var recommend = Recommend(0,"")
+
     val hitList = mutableListOf<Int>()
 
     data class OpenResult (

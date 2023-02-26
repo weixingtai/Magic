@@ -3,7 +3,6 @@ package com.suromo.magic.repo
 import com.suromo.magic.db.dao.LotteryDao
 import com.suromo.magic.db.entity.Lottery
 import com.suromo.magic.ui.bean.RequestResult
-import com.suromo.magic.ui.view.home.Recommend
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,14 +19,11 @@ class LotteryRepository @Inject constructor(
     private val dao: LotteryDao
     ) {
 
-    suspend fun getLotteries() : List<Lottery> {
+    suspend fun getLotteries() : RequestResult<List<Lottery>> {
         return withContext(Dispatchers.IO) {
-            dao.getLotteries()
+            val result = dao.getLotteries()
+            RequestResult.Success(result)
         }
     }
 
-    fun getRecommend() : RequestResult<Recommend>{
-        val recommend = Recommend(period = "2013")
-        return RequestResult.Success(recommend)
-    }
 }

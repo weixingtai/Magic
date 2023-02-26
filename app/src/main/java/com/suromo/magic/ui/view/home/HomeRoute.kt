@@ -5,7 +5,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.suromo.magic.vm.HomeViewModel
 
 /**
@@ -26,7 +25,7 @@ fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         showTopAppBar = !isExpandedScreen,
-        onRefreshRecommend = { viewModel.refreshRecommend() },
+        onRefreshLotteries = { viewModel.refreshLotteries() },
         onErrorDismiss = { viewModel.errorShown(it) },
         openDrawer = openDrawer,
         scaffoldState = scaffoldState

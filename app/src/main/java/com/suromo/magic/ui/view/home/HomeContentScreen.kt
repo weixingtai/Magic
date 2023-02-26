@@ -6,6 +6,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.suromo.magic.db.entity.Lottery
+import com.suromo.magic.strategy.MissSevenStrategy
 
 /**
  * author : Samuel
@@ -15,16 +17,22 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun HomeContentScreen(
-    recommend: Recommend,
+    lotteries: List<Lottery>,
     modifier: Modifier
 ) {
+
+    val strategy = MissSevenStrategy()
+    strategy.initHistory(lotteries)
+
     Column(modifier = Modifier.padding(20.dp)) {
-        Text(text = "第20230226期心水推荐：")
-        Text(text = "特码：02")
-        Text(text = "金额: 50 元")
-        Text(text = "")
-        Text(text = "单双：双 金额 50 元")
-        Text(text = "三中三：03-04-05 金额 50 元")
+        Text(text = "第${strategy.getNextRecommend().longperiod}期心水推荐：")
+        Text(text = "策略一选号推荐：${strategy.strategy1}")
+        Text(text = "策略二选号推荐：${strategy.strategy2}")
+        Text(text = "策略三选号推荐：${strategy.strategy3}")
+        Text(text = "策略四选号推荐：${strategy.strategy4}")
+        Text(text = "策略五选号推荐：${strategy.strategy5}")
+        Text(text = "所有策略选号推荐：${strategy.generateNumList}")
+        Text(text = "本期七不中推荐：${strategy.getNextRecommend().num}")
     }
 
 
