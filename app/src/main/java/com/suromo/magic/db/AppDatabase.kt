@@ -44,8 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             MLog.d("buildDatabase")
-                            val request = OneTimeWorkRequestBuilder<MagicDatabaseWorker>()
-                                .build()
+                            val request = OneTimeWorkRequestBuilder<MagicDatabaseWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }
                     }

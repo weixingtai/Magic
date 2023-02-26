@@ -1,11 +1,10 @@
 package com.suromo.magic.vm
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.suromo.magic.R
 import com.suromo.magic.repo.LotteryRepository
+import com.suromo.magic.strategy.RecommendStrategy
 import com.suromo.magic.ui.bean.ErrorMessage
 import com.suromo.magic.ui.bean.RequestResult
 import com.suromo.magic.ui.view.home.HomeUiState
@@ -37,8 +36,22 @@ class HomeViewModel @Inject constructor(
 
     init {
         refreshRecommend()
+        refreshAll()
     }
 //    val result = repository.getLotteries().asLiveData()
+
+    private fun refreshAll() {
+
+        viewModelScope.launch {
+            val lotteries = repository.getLotteries()
+//            Log.d("wxt", "lotteries:${lotteries}")
+//            val strategy : ILotteryStrategy = AllOddStrategy()
+//            strategy.initHistory(lotteries)
+            val strategy = RecommendStrategy()
+            strategy.initStrategy(lotteries)
+        }
+    }
+
     fun refreshRecommend(){
         viewModelState.update { it.copy(isLoading = true) }
 
@@ -67,17 +80,6 @@ class HomeViewModel @Inject constructor(
         viewModelState.update { currentUiState ->
             val errorMessages = currentUiState.errorMessages.filterNot { it.id == errorId }
             currentUiState.copy(errorMessages = errorMessages)
-        }
-    }
-
-    companion object {
-        fun provideFactory(
-            homeRepository: LotteryRepository,
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel(homeRepository) as T
-            }
         }
     }
 }
