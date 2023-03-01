@@ -2,9 +2,7 @@ package com.suromo.magic.repo
 
 import com.suromo.magic.db.dao.LotteryDao
 import com.suromo.magic.db.entity.Lottery
-import com.suromo.magic.ui.bean.RequestResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,11 +17,8 @@ class LotteryRepository @Inject constructor(
     private val dao: LotteryDao
     ) {
 
-    suspend fun getLotteries() : RequestResult<List<Lottery>> {
-        return withContext(Dispatchers.IO) {
-            val result = dao.getLotteries()
-            RequestResult.Success(result)
-        }
+    fun getLotteries() : Flow<List<Lottery>> {
+        return dao.getLotteries()
     }
 
 }
