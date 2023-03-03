@@ -2,6 +2,7 @@ package com.suromo.magic.di
 
 import android.content.Context
 import com.suromo.magic.db.AppDatabase
+import com.suromo.magic.db.dao.HistoryDao
 import com.suromo.magic.db.dao.LotteryDao
 import dagger.Module
 import dagger.Provides
@@ -29,5 +30,10 @@ class DatabaseModule {
     @Provides
     fun provideLotteryDao(appDatabase: AppDatabase): LotteryDao {
         return appDatabase.lotteryDao()
+    }
+
+    @Provides
+    fun provideHistoryDao(appDatabase: AppDatabase): HistoryDao {
+        return appDatabase.historyDao()
     }
 }

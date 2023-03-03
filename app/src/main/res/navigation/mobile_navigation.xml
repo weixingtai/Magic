@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_recommend"
-        android:name="com.suromo.magic.ui.recommend.RecommendFragment"
+        android:name="com.suromo.magic.ui.RecommendFragment"
         android:label="@string/recommend"
         tools:layout="@layout/fragment_recommend" />
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.suromo.magic.ui.history.HistoryFragment"
+        android:name="com.suromo.magic.ui.HistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_statistics"
-        android:name="com.suromo.magic.ui.statistics.StatisticsFragment"
+        android:name="com.suromo.magic.ui.StatisticsFragment"
         android:label="@string/statistics"
         tools:layout="@layout/fragment_statistics" />
 </navigation>

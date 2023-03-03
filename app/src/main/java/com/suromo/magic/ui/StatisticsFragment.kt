@@ -1,4 +1,4 @@
-package com.suromo.magic.ui.statistics
+package com.suromo.magic.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.suromo.magic.databinding.FragmentStatisticsBinding
+import com.suromo.magic.vm.StatisticsViewModel
 
 class StatisticsFragment : Fragment() {
 

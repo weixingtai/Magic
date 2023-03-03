@@ -9,6 +9,7 @@ package com.suromo.magic.strategy
 open class BaseStrategy {
 
     val historyList = mutableListOf<OpenResult>()
+    val smallBallHistoryList = mutableListOf<OpenResult>()
     val strategyList = mutableListOf<OpenResult>()
 
     var recommend = Recommend(0,"")

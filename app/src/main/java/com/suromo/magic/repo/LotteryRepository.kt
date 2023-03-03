@@ -1,8 +1,12 @@
 package com.suromo.magic.repo
 
+import com.suromo.magic.db.dao.HistoryDao
 import com.suromo.magic.db.dao.LotteryDao
+import com.suromo.magic.db.entity.History
 import com.suromo.magic.db.entity.Lottery
-import kotlinx.coroutines.flow.Flow
+import com.suromo.magic.ui.bean.RequestResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,11 +18,22 @@ import javax.inject.Singleton
  */
 @Singleton
 class LotteryRepository @Inject constructor(
-    private val dao: LotteryDao
-    ) {
+    private val lotteryDao: LotteryDao,
+    private val historyDao: HistoryDao
+) {
 
-    fun getLotteries() : Flow<List<Lottery>> {
-        return dao.getLotteries()
+    suspend fun getLotteries() : RequestResult<List<Lottery>> {
+        return withContext(Dispatchers.IO) {
+            val result = lotteryDao.getLotteries()
+            RequestResult.Success(result)
+        }
+    }
+
+    suspend fun getHistoryByDate(date: String) : RequestResult<History> {
+        return withContext(Dispatchers.IO) {
+            val result = historyDao.getHistoryByDate(date)
+            RequestResult.Success(result)
+        }
     }
 
 }

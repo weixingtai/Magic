@@ -1,4 +1,4 @@
-package com.suromo.magic.ui.history
+package com.suromo.magic.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -8,7 +8,9 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.suromo.magic.db.dao.HistoryDao
 import com.suromo.magic.db.dao.LotteryDao
+import com.suromo.magic.db.entity.History
 import com.suromo.magic.db.entity.Lottery
 import com.suromo.magic.db.util.Converters
 import com.suromo.magic.db.util.DATABASE_NAME
@@ -21,10 +23,11 @@ import com.suromo.magic.worker.MagicDatabaseWorker
  * time   : 2023/2/23 下午6:56
  * desc   :
  */
-@Database(entities = [Lottery::class], version = 1, exportSchema = false)
+@Database(entities = [Lottery::class, History::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun lotteryDao(): LotteryDao
+    abstract fun historyDao(): HistoryDao
 
     companion object {
 
@@ -39,6 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
                 .addCallback(
                     object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -52,4 +56,5 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
     }
+
 }

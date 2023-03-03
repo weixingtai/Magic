@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface LotteryDao {
     @Query("SELECT * FROM lottery ORDER BY longperiod")
-    fun getLotteries(): Flow<List<Lottery>>
+    fun getLotteries(): List<Lottery>
 
     @Query("SELECT * FROM lottery WHERE period = :period ORDER BY numbers")
     fun getLotteryByPeriod(period: Int): Flow<List<Lottery>>

@@ -3,4 +3,5 @@
     <string name="recommend">推荐</string>
     <string name="history">历史</string>
     <string name="statistics">统计</string>
+    <string name="load_error">无法刷新当前页面</string>
 </resources>

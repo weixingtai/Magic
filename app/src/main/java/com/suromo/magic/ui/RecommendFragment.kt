@@ -1,4 +1,4 @@
-package com.suromo.magic.ui.recommend
+package com.suromo.magic.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.suromo.magic.databinding.FragmentRecommendBinding
+import com.suromo.magic.vm.RecommendViewModel
 
 class RecommendFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class RecommendFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val recommendViewModel :RecommendViewModel by activityViewModels()
+        val recommendViewModel : RecommendViewModel by activityViewModels()
         recommendViewModel.refreshLotteries()
         _binding = FragmentRecommendBinding.inflate(inflater, container, false)
         val root: View = binding.root
