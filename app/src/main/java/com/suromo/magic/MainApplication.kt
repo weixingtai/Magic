@@ -1,10 +1,8 @@
 package com.suromo.magic
 
 import android.app.Application
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import com.orhanobut.hawk.Hawk
 import com.suromo.magic.log.MLog
-import com.suromo.magic.worker.MagicDatabaseWorker
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -24,9 +22,11 @@ class MainApplication : Application() {
         super.onCreate()
         mApplicationContext = this
         MLog.initLogger()
+        Hawk.init(mApplicationContext).build();
 
-        val request = OneTimeWorkRequestBuilder<MagicDatabaseWorker>().build()
-        WorkManager.getInstance(mApplicationContext).enqueue(request)
+
+//        val request = OneTimeWorkRequestBuilder<MagicDatabaseWorker>().build()
+//        WorkManager.getInstance(mApplicationContext).enqueue(request)
 
     }
 

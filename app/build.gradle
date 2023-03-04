@@ -103,6 +103,9 @@ dependencies {
     //logger
     implementation 'com.orhanobut:logger:2.2.0'
 
+    //hawk
+    implementation "com.orhanobut:hawk:2.0.1"
+
     //navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'

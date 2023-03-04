@@ -1,146 +1,211 @@
 package com.suromo.magic.vm
 
 import android.util.Log
-import androidx.lifecycle.*
-import androidx.lifecycle.map
-import com.suromo.magic.R
-import com.suromo.magic.db.AppDatabase
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.orhanobut.hawk.Hawk
 import com.suromo.magic.db.dao.HistoryDao
+import com.suromo.magic.db.dao.LotteryDao
 import com.suromo.magic.db.entity.History
 import com.suromo.magic.db.entity.Lottery
+import com.suromo.magic.log.MLog
 import com.suromo.magic.repo.LotteryRepository
-import com.suromo.magic.state.HomeUiState
-import com.suromo.magic.strategy.MissSevenStrategy
-import com.suromo.magic.ui.bean.ErrorMessage
 import com.suromo.magic.ui.bean.RequestResult
+import com.suromo.magic.util.getPreviousLongPeriod
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class RecommendViewModel @Inject constructor(
     private val repository: LotteryRepository,
-    private val historyDao: HistoryDao
+    private val historyDao: HistoryDao,
+    private val lotteryDao: LotteryDao,
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<Lottery>()
+    private val _lotteries = MutableLiveData<List<Lottery>>()
+    private val _history = MutableLiveData<History>()
 
-    val text: LiveData<Lottery> = _text
+    val lotteries: LiveData<List<Lottery>> = _lotteries
+    val history: LiveData<History> = _history
 
-    private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = true))
-
-    val uiState = viewModelState
-        .map { it.toUiState() }
-        .stateIn(viewModelScope,
-            SharingStarted.Eagerly,
-            viewModelState.value.toUiState())
 
     init {
-        refreshLotteries()
+        //如果数据还没有初始化或者没有更新到最新的数据，就从网络获取数据
+        if (!Hawk.get("init_history",false) || Hawk.get("init_long_period",0)!= getPreviousLongPeriod()){
+            MLog.d("从网络获取数据")
+            getLotteriesFromNetwork()
+        } else {
+            MLog.d("从本地获取数据")
+            getLotteriesFromDb()
+        }
     }
 
-    fun refreshLotteries(){
-        viewModelState.update { it.copy(isLoading = true) }
-
+    private fun getLotteriesFromNetwork(){
         viewModelScope.launch {
+            val source = async { repository.getLotteriesFromNetwork() }
 
-            val today = SimpleDateFormat("yyyy年MM月dd日").format(Date())
+            when(val result = source.await()) {
+                is RequestResult.Success -> {
+                    val lotteries = result.data
+                    val lotteriesDb = mutableListOf<Lottery>()
+                    for (lottery in lotteries) {
+                        val lotteryDb = Lottery(
+                            longperiod = lottery.longperiod,
+                            period = lottery.period,
+                            numbers = lottery.numbers,
+                            sx = lottery.sx,
+                            wx = lottery.wx,
+                            date = lottery.date
+                        )
+                        lotteriesDb.add(lotteryDb)
+                    }
+                    lotteryDao.insertAll(lotteriesDb)
+                    MLog.d( "从网络获取数据存到数据库成功")
+                    Hawk.put("init_history",true)
+                    Hawk.put("init_long_period",lotteries[0].longperiod)
 
-            val source1 = async { repository.getLotteries() }
-            val source2 = async { repository.getHistoryByDate(today) }
-            val result = source1.await()
-            val result2 = source2.await()
-
-            when(result2) {
-                is RequestResult.Success ->{
-                    val history: History = result2.data
-                    Log.d("wxt", "history:$history")
+                    getLotteriesFromDb()
                 }
                 is RequestResult.Error -> {
-                    val errorMessage = ErrorMessage(
-                        id = UUID.randomUUID().mostSignificantBits,
-                        messageId = R.string.load_error
-                    )
-                    Log.d("wxt","errorMessage:"+errorMessage.messageId)
+                    MLog.d( "从网络获取数据存到数据库失败")
                 }
             }
-
-            viewModelState.update {
-                when(result) {
-                    is RequestResult.Success ->{
-
-                        val lotteries: List<Lottery> = result.data
-                        Log.d("wxt", "lotteries:$lotteries")
-                        val strategy = MissSevenStrategy()
-                        strategy.initHistory(lotteries)
-                        Log.d("wxt","第${strategy.getNextRecommend().longperiod}期心水推荐：")
-                        Log.d("wxt","策略一(取上期开奖结果)选号：${strategy.strategy1}")
-                        Log.d("wxt","策略二(上期开出的幸运号码)选号：${strategy.strategy2}")
-                        Log.d("wxt","策略三(小码连续来两期)选号：${strategy.strategy3}")
-                        Log.d("wxt","策略四(上期跳号)选号：${strategy.strategy4}")
-                        Log.d("wxt","策略五(上期与上上期跳号)选号：${strategy.strategy5}")
-                        Log.d("wxt","策略六(上期特尾数乘二)选号：${strategy.strategy6}")
-                        Log.d("wxt","策略七(上期最小两个号码相乘)选号：${strategy.strategy7}")
-                        Log.d("wxt","所有策略选号推荐：${strategy.generateNumList}")
-                        Log.d("wxt","本期七不中推荐：${strategy.getNextRecommend().num}")
-
-                        val history = History(
-                            longperiod = strategy.getNextRecommend().longperiod,
-                            numbers = strategy.getNextRecommend().num,
-                            date = SimpleDateFormat("yyyy年MM月dd日").format(Date()),
-                            bet = 500,
-                            win = true
-                        )
-
-                        historyDao.insert(history)
-
-
-
-                        it.copy(lotteries = result.data, isLoading = false)
-                    }
-                    is RequestResult.Error -> {
-                        val errorMessage = it.errorMessages + ErrorMessage(
-                            id = UUID.randomUUID().mostSignificantBits,
-                            messageId = R.string.load_error
-                        )
-                        it.copy(errorMessages = errorMessage, isLoading = false)
-                    }
-                }
-            }
-
         }
     }
 
-    fun errorShown(errorId: Long) {
-        viewModelState.update { currentUiState ->
-            val errorMessages = currentUiState.errorMessages.filterNot { it.id == errorId }
-            currentUiState.copy(errorMessages = errorMessages)
+    private fun getLotteriesFromDb(){
+        viewModelScope.launch {
+            val source = async { repository.getLotteriesFromDb() }
+
+            when(val result = source.await()) {
+                is RequestResult.Success -> {
+                    _lotteries.apply {
+                        value = result.data
+                    }
+                }
+                is RequestResult.Error -> {
+                    MLog.d( "从数据库获取数据失败")
+                }
+            }
         }
     }
 
-    private data class HomeViewModelState(
-        val lotteries: List<Lottery>? = null,
-        val isLoading: Boolean = false,
-        val errorMessages: List<ErrorMessage> = emptyList()
-    ) {
-        fun toUiState(): HomeUiState =
-            if (lotteries == null) {
-                HomeUiState.NoLotteries(
-                    isLoading = isLoading,
-                    errorMessages = errorMessages
-                )
-            } else {
-                HomeUiState.HasLotteries(
-                    lotteries = lotteries,
-                    isLoading = isLoading,
-                    errorMessages = errorMessages
-                )
-            }
-    }
-
+//    private fun LotteriesFromLocal(){
+//
+//        //获取当前下一期开奖期数
+//        val longPeriod = getNetLongPeriod()
+//
+//        viewModelScope.launch {
+//
+//            val sourceHistory = async { repository.getHistories() }
+//            val sourceLottery = async { repository.getLotteries() }
+//
+//            val resultHistory = sourceHistory.await()
+//            val resultLottery = sourceLottery.await()
+//
+//            when(resultHistory) {
+//                is RequestResult.Success -> {
+//
+//                }
+//                is RequestResult.Error -> {
+//                    val errorMessage = ErrorMessage(
+//                        id = UUID.randomUUID().mostSignificantBits,
+//                        messageId = R.string.load_error
+//                    )
+//                    Log.d("wxt", "errorMessage:" + errorMessage.messageId)
+//                }
+//            }
+//
+//            when(resultHistory) {
+//                is RequestResult.Success ->{
+//
+//                    val histories: List<History> = resultHistory.data
+//                    //最新一期推荐号码已存入数据库
+//                    if (histories.isNotEmpty() && histories[histories.size-1].longperiod == longPeriod){
+//                        _history.apply {
+//                            value = histories[histories.size-1]
+//                        }
+//                    } else {
+//                        when(resultLottery) {
+//                            is RequestResult.Success -> {
+//                                _lotteries.apply {
+//                                    value = resultLottery.data
+//                                }
+//                                val lotteries: List<Lottery> = resultLottery.data
+//                                if (lotteries.isNotEmpty() && histories.isNotEmpty()){
+//                                    if (lotteries[lotteries.size-1].longperiod == getPreviousLongPeriod()) {
+//                                        if (histories[histories.size-1].longperiod == getPreviousLongPeriod()) {
+//                                            val mIsWin = checkIsWin(lotteries[lotteries.size-1].numbers,histories[histories.size-1].numbers)
+//                                            val history: History = if (mIsWin) {
+//                                                History(
+//                                                    longperiod = histories[histories.size-1].longperiod,
+//                                                    numbers = histories[histories.size-1].numbers,
+//                                                    bet = histories[histories.size-1].bet,
+//                                                    win = histories[histories.size-1].bet * 2
+//                                                )
+//                                            }else {
+//                                                History(
+//                                                    longperiod = histories[histories.size-1].longperiod,
+//                                                    numbers = histories[histories.size-1].numbers,
+//                                                    bet = histories[histories.size-1].bet,
+//                                                    win = -histories[histories.size-1].bet
+//                                                )
+//                                            }
+//                                            historyDao.update(history)
+//                                        }
+//                                    }
+//
+//
+//                                    val bet: Int = if (histories.size > 2) {
+//                                        //根据上期确定这次投注金额
+//                                        if (histories[histories.size-2].win > 0){
+//                                            histories[histories.size-2].win * 2
+//                                        } else {
+//                                            500
+//                                        }
+//                                    } else {
+//                                        500
+//                                    }
+//
+//                                    val strategy = MissSevenStrategy()
+//                                    strategy.initHistory(lotteries)
+//
+//                                    val history = History(
+//                                        longperiod = longPeriod,
+//                                        numbers = strategy.getNextRecommend().num,
+//                                        bet = bet,
+//                                        win = 0
+//                                    )
+//
+//                                    historyDao.insert(history)
+//
+//                                    _history.apply {
+//                                        value = history
+//                                    }
+//                                }
+//                            }
+//                            is RequestResult.Error -> {
+//                                val errorMessage = ErrorMessage(
+//                                    id = UUID.randomUUID().mostSignificantBits,
+//                                    messageId = R.string.load_error
+//                                )
+//                                Log.d("wxt","errorMessage:"+errorMessage.messageId)
+//                            }
+//                        }
+//                    }
+//                }
+//                is RequestResult.Error -> {
+//                    val errorMessage = ErrorMessage(
+//                        id = UUID.randomUUID().mostSignificantBits,
+//                        messageId = R.string.load_error
+//                    )
+//                    Log.d("wxt","errorMessage:"+errorMessage.messageId)
+//                }
+//            }
+//        }
+//    }
 }

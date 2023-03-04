@@ -1,36 +1,36 @@
-package com.suromo.magic.strategy
-
-import com.suromo.magic.db.entity.Lottery
-
-/**
- * author : Samuel
- * e-mail : xingtai.wei@icloud.com
- * time   : 2023/2/26
- * desc   :
- */
-class RecommendStrategy {
-
-
-    fun initStrategy(lotteries: List<Lottery>){
-//        val strategyAllOdd : ILotteryStrategy = AllOddStrategy()
-//        strategyAllOdd.initHistory(lotteries)
+//package com.suromo.magic.strategy
 //
-//        val allOddMissNum = strategyAllOdd.getMissNum()
+//import com.suromo.magic.db.entity.Lottery
 //
-//        Log.d("wxt","策略：${strategyAllOdd.getStrategyName()},已爆：${strategyAllOdd.getMissNum()}期")
+///**
+// * author : Samuel
+// * e-mail : xingtai.wei@icloud.com
+// * time   : 2023/2/26
+// * desc   :
+// */
+//class RecommendStrategy {
 //
-//        val strategyAllEven : ILotteryStrategy = AllEvenStrategy()
-//        strategyAllEven.initHistory(lotteries)
 //
-//        val allEvenMissNum = strategyAllEven.getMissNum()
+//    fun initStrategy(lotteries: List<Lottery>){
+////        val strategyAllOdd : ILotteryStrategy = AllOddStrategy()
+////        strategyAllOdd.initHistory(lotteries)
+////
+////        val allOddMissNum = strategyAllOdd.getMissNum()
+////
+////        Log.d("wxt","策略：${strategyAllOdd.getStrategyName()},已爆：${strategyAllOdd.getMissNum()}期")
+////
+////        val strategyAllEven : ILotteryStrategy = AllEvenStrategy()
+////        strategyAllEven.initHistory(lotteries)
+////
+////        val allEvenMissNum = strategyAllEven.getMissNum()
+////
+////        Log.d("wxt","策略：${strategyAllEven.getStrategyName()},已爆：${strategyAllEven.getMissNum()}期")
 //
-//        Log.d("wxt","策略：${strategyAllEven.getStrategyName()},已爆：${strategyAllEven.getMissNum()}期")
-
-
-        val strategy : ILotteryStrategy = MissSevenStrategy()
-        strategy.initHistory(lotteries)
-
-
-    }
-
-}
+//
+//        val strategy : ILotteryStrategy = MissSevenStrategy()
+//        strategy.initHistory(lotteries)
+//
+//
+//    }
+//
+//}

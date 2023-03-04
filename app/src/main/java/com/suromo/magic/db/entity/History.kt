@@ -15,6 +15,5 @@ data class History(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "longperiod") val longperiod: Int,
     @ColumnInfo(name = "numbers") val numbers:String,
-    @ColumnInfo(name = "date") val date:String,
     @ColumnInfo(name = "bet") val bet:Int,
-    @ColumnInfo(name = "win") val win:Boolean)
+    @ColumnInfo(name = "win") val win:Int)
