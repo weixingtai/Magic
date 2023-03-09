@@ -250,12 +250,12 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         }
 //        Log.d("wxt","策略八(上期最小两个号码相加)选号：$strategy8")
 
-        //策略九：上期开1，9，这期买9，1
+        //策略九：上期开1，49，这期买49，1
         historyList[4].numbers.sort()
         if (historyList[4].numbers.contains(1)){
-            strategy9.add(9)
+            strategy9.add(49)
         }
-        if (historyList[4].numbers.contains(9)){
+        if (historyList[4].numbers.contains(49)){
             strategy9.add(1)
         }
 //        Log.d("wxt","策略九(上期开1，9，这期买9，1)选号：$strategy9")

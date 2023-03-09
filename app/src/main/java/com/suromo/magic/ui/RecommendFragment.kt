@@ -38,7 +38,7 @@ class RecommendFragment : Fragment() {
             binding.strategy6.text = "策略六(上期特尾数乘二)选号：${strategy.strategy6}"
             binding.strategy7.text = "策略七(上期最小两个号码相乘)选号：${strategy.strategy7}"
             binding.strategy8.text = "策略八(上期最小两个号码相加)选号：${strategy.strategy8}"
-            binding.strategy9.text = "策略九(上期开1，9，这期买9，1)选号：${strategy.strategy9}"
+            binding.strategy9.text = "策略九(上期开1，49，这期买49，1)选号：${strategy.strategy9}"
             binding.strategyAll.text = "所有策略选号推荐：${strategy.generateNumList}"
             binding.strategyRecommend.text = "本期七不中推荐：${strategy.getNextRecommend()}"
 
