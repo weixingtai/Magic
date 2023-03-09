@@ -12,7 +12,7 @@ interface ILotteryStrategy {
 
     //获取策略名称
     fun getStrategyName(): String
-//    fun calculateHistory(lotteries: List<Lottery>)
+    fun calculateHistory(lotteries: List<Lottery>)
     //初始化开奖结果
     fun initHistory(lotteries: List<Lottery>)
 

@@ -31,103 +31,103 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         return "七不中"
     }
 
-//    override fun calculateHistory(lotteries: List<Lottery>){
-//        var winCount = 0
-//        var loseCount = 0
-//
-//        var count1 = 0
-//        var count2 = 0
-//        var count3 = 0
-//        var count4 = 0
-//        var count5 = 0
-//        var count6 = 0
-//        var count7 = 0
-//        var count8 = 0
-//        var count9 = 0
-//        if (lotteries.isNotEmpty()){
-//            MLog.d("lotteries.isNotEmpty():"+lotteries.size)
-//            val tempLotteries : MutableList<Lottery> = mutableListOf()
-//            for (lottery in lotteries) {
-//                MLog.d(lottery)
-//                MLog.d("tempLotteries:"+tempLotteries.size)
-//                if (tempLotteries.size < 5){
-//                    tempLotteries.add(lottery)
-//                    MLog.d("tempLotteries add:"+tempLotteries.size)
-//                    if (tempLotteries.size == 5){
-//                        MLog.d("lotteries.size == 5")
-//                        initHistory(tempLotteries)
-//                        MLog.d("getNextRecommend:" + getNextRecommend())
-//                        if (lotteries.size - 1 > lotteries.indexOf(lottery)) {
-//                            MLog.d("getNextOpen:" + lotteries[(lotteries.indexOf(lottery) + 1)].numbers)
-//                            var mIsWin = true
-//                            MLog.d("lotteries[(lotteries.indexOf(lottery)):"+lotteries[(lotteries.indexOf(lottery)+1)])
-//                            for (num in getNextRecommend().num.split(",")){
-//                                if (lotteries[(lotteries.indexOf(lottery)+1)].numbers.split(",").contains(num)){
-//                                    mIsWin = false
-//                                    if (strategy1.contains(num.toInt())){
-//                                        MLog.d("策略1爆:num:$num")
-//                                        count1++
-//                                    }
-//                                    if (strategy2.contains(num.toInt())){
-//                                        MLog.d("策略2爆:num:$num")
-//                                        count2++
-//                                    }
-//                                    if (strategy3.contains(num.toInt())){
-//                                        MLog.d("策略3爆:num:$num")
-//                                        count3++
-//                                    }
-//                                    if (strategy4.contains(num.toInt())){
-//                                        MLog.d("策略4爆:num:$num")
-//                                        count4++
-//                                    }
-//                                    if (strategy5.contains(num.toInt())){
-//                                        MLog.d("策略5爆:num:$num")
-//                                        count5++
-//                                    }
-//                                    if (strategy6.contains(num.toInt())){
-//                                        MLog.d("策略6爆:num:$num")
-//                                        count6++
-//                                    }
-//                                    if (strategy7.contains(num.toInt())){
-//                                        MLog.d("策略7爆:num:$num")
-//                                        count7++
-//                                    }
-//                                    if (strategy8.contains(num.toInt())){
-//                                        MLog.d("策略8爆:num:$num")
-//                                        count8++
-//                                    }
-//                                    if (strategy9.contains(num.toInt())){
-//                                        MLog.d("策略9爆:num:$num")
-//                                        count9++
-//                                    }
-//
-//                                }
-//                            }
-//                            if (mIsWin) {
-//                                winCount++
-//                                MLog.d("本期赢")
-//                            }else {
-//                                loseCount++
-//                                MLog.d("本期输")
-//                            }
-//                        }
-//                        tempLotteries.removeFirst()
-//                    }
-//                }
-//            }
-//            MLog.d("winCount:$winCount")
-//            MLog.d("loseCount:$loseCount")
-//            MLog.d("count1:$count1")
-//            MLog.d("count2:$count2")
-//            MLog.d("count3:$count3")
-//            MLog.d("count4:$count4")
-//            MLog.d("count5:$count5")
-//            MLog.d("count6:$count6")
-//            MLog.d("count7:$count7")
-//            MLog.d("count8:$count8")
-//            MLog.d("count9:$count9")
-//        }
-//    }
+    override fun calculateHistory(lotteries: List<Lottery>){
+        var winCount = 0
+        var loseCount = 0
+
+        var count1 = 0
+        var count2 = 0
+        var count3 = 0
+        var count4 = 0
+        var count5 = 0
+        var count6 = 0
+        var count7 = 0
+        var count8 = 0
+        var count9 = 0
+        if (lotteries.isNotEmpty()){
+            MLog.d("lotteries.isNotEmpty():"+lotteries.size)
+            val tempLotteries : MutableList<Lottery> = mutableListOf()
+            for (lottery in lotteries) {
+                MLog.d(lottery)
+                MLog.d("tempLotteries:"+tempLotteries.size)
+                if (tempLotteries.size < 5){
+                    tempLotteries.add(lottery)
+                    MLog.d("tempLotteries add:"+tempLotteries.size)
+                    if (tempLotteries.size == 5){
+                        MLog.d("lotteries.size == 5")
+                        initHistory(tempLotteries)
+                        MLog.d("getNextRecommend:" + getNextRecommend())
+                        if (lotteries.size - 1 > lotteries.indexOf(lottery)) {
+                            MLog.d("getNextOpen:" + lotteries[(lotteries.indexOf(lottery) + 1)].numbers)
+                            var mIsWin = true
+                            MLog.d("lotteries[(lotteries.indexOf(lottery)):"+lotteries[(lotteries.indexOf(lottery)+1)])
+                            for (num in getNextRecommend().num.split(",")){
+                                if (lotteries[(lotteries.indexOf(lottery)+1)].numbers.split(",").contains(num)){
+                                    mIsWin = false
+                                    if (strategy1.contains(num.toInt())){
+                                        MLog.d("策略1爆:num:$num")
+                                        count1++
+                                    }
+                                    if (strategy2.contains(num.toInt())){
+                                        MLog.d("策略2爆:num:$num")
+                                        count2++
+                                    }
+                                    if (strategy3.contains(num.toInt())){
+                                        MLog.d("策略3爆:num:$num")
+                                        count3++
+                                    }
+                                    if (strategy4.contains(num.toInt())){
+                                        MLog.d("策略4爆:num:$num")
+                                        count4++
+                                    }
+                                    if (strategy5.contains(num.toInt())){
+                                        MLog.d("策略5爆:num:$num")
+                                        count5++
+                                    }
+                                    if (strategy6.contains(num.toInt())){
+                                        MLog.d("策略6爆:num:$num")
+                                        count6++
+                                    }
+                                    if (strategy7.contains(num.toInt())){
+                                        MLog.d("策略7爆:num:$num")
+                                        count7++
+                                    }
+                                    if (strategy8.contains(num.toInt())){
+                                        MLog.d("策略8爆:num:$num")
+                                        count8++
+                                    }
+                                    if (strategy9.contains(num.toInt())){
+                                        MLog.d("策略9爆:num:$num")
+                                        count9++
+                                    }
+
+                                }
+                            }
+                            if (mIsWin) {
+                                winCount++
+                                MLog.d("本期赢")
+                            }else {
+                                loseCount++
+                                MLog.d("本期输")
+                            }
+                        }
+                        tempLotteries.removeFirst()
+                    }
+                }
+            }
+            MLog.d("winCount:$winCount")
+            MLog.d("loseCount:$loseCount")
+            MLog.d("count1:$count1")
+            MLog.d("count2:$count2")
+            MLog.d("count3:$count3")
+            MLog.d("count4:$count4")
+            MLog.d("count5:$count5")
+            MLog.d("count6:$count6")
+            MLog.d("count7:$count7")
+            MLog.d("count8:$count8")
+            MLog.d("count9:$count9")
+        }
+    }
 
     override fun initHistory(lotteries: List<Lottery>) {
         historyList.clear()

@@ -35,13 +35,13 @@ class RecommendViewModel @Inject constructor(
 
     init {
         //如果数据还没有初始化或者没有更新到最新的数据，就从网络获取数据
-        if (!Hawk.get("init_history",false) || Hawk.get("init_long_period",0)!= getPreviousLongPeriod()){
+//        if (!Hawk.get("init_history",false) || Hawk.get("init_long_period",0)!= getPreviousLongPeriod()){
             MLog.d("从网络获取数据")
             getLotteriesFromNetwork()
-        } else {
-            MLog.d("从本地获取数据")
-            getLotteriesFromDb()
-        }
+//        } else {
+//            MLog.d("从本地获取数据")
+//            getLotteriesFromDb()
+//        }
     }
 
     private fun getLotteriesFromNetwork(){
@@ -68,7 +68,11 @@ class RecommendViewModel @Inject constructor(
                     Hawk.put("init_history",true)
                     Hawk.put("init_long_period",lotteries[0].longperiod)
 
-                    getLotteriesFromDb()
+                    _lotteries.apply {
+                        value = lotteriesDb
+                    }
+
+//                    getLotteriesFromDb()
                 }
                 is RequestResult.Error -> {
                     MLog.d( "从网络获取数据存到数据库失败")
