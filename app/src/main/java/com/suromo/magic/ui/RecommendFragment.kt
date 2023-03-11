@@ -36,9 +36,41 @@ class RecommendFragment : Fragment() {
 
                 for (lottery in lotteriesCopy){
                     lotteriesTest.add(lottery)
-                    if (lottery.longperiod in 2023031..2023069){
-                        Log.d("wxt","lotteriesTest:${lotteriesTest.size}")
+                    if (lottery.longperiod > 2023011){
+//                        Log.d("wxt","lotteriesTest:${lotteriesTest.size}")
                         strategy.initHistory(lotteriesTest)
+                    }
+                }
+
+                val result = mutableListOf<MutableList<Int>>()
+                for (lottery in lotteriesCopy){
+                    if (lottery.longperiod > 2023012){
+                        val openList = mutableListOf<Int>()
+                        for (num in lottery.numbers.split(",")){
+                            openList.add(num.toInt())
+                        }
+                        Log.d("wxt","第${lottery.longperiod} 期")
+                        result.add(openList)
+                    }
+                }
+
+                val recommend = strategy.strategy1
+                recommend.removeLast()
+                Log.d("wxt","预测号码：$recommend")
+//
+                Log.d("wxt","开奖号码：$result")
+
+                for (i in 0 until recommend.size){
+                    var mIsWin = true
+                    for (num in recommend[i]){
+                        if (result[i].contains(num)){
+                            mIsWin = false
+                        }
+                    }
+                    if (mIsWin){
+                        Log.d("wxt","策略中")
+                    } else {
+                        Log.d("wxt","策略爆")
                     }
                 }
             }
