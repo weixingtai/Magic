@@ -27,6 +27,6 @@ interface ILotteryStrategy {
     fun getMissNum(): Int
 
     //获取下一期推荐开奖
-    fun getNextRecommend(): BaseStrategy.Recommend
+//    fun getNextRecommend(): BaseStrategy.Recommend
 
 }

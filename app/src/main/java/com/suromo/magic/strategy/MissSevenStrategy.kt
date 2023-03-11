@@ -11,7 +11,7 @@ import com.suromo.magic.db.entity.Lottery
  */
 class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
     val strategy1 = mutableListOf<MutableSet<Int>>()
-    val strategy2 = mutableListOf<Int>()
+    val strategy2 = mutableListOf<Recommend>()
     val strategy3 = mutableListOf<Int>()
     private val recommendNumList = mutableSetOf<Int>()
 
@@ -186,7 +186,7 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         }
 //        Log.d("wxt","所有号码:${numMap.toSortedMap()}")
 
-        val averageValue = (numMap.values.max() + numMap.values.min())/2 + 1
+        val averageValue = (numMap.values.max() + numMap.values.min())/2
 
         val numbers =  mutableSetOf<Int>()
 
@@ -231,10 +231,17 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         if (numbers.count() < 7){
             numbers.add(12)
         }
-        Log.d("wxt","推荐号码：$numbers")
 
 
-        strategy1.add(numbers)
+        val recommend = Recommend(
+            longperiod = historyList.first().longPeriod + 1,
+            numbers = numbers
+        )
+
+//        Log.d("wxt","推荐号码：$recommend")
+        strategy2.add(recommend)
+
+//        strategy1.add(numbers)
 
     }
 
@@ -246,7 +253,7 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         TODO("Not yet implemented")
     }
 
-    override fun getNextRecommend(): Recommend {
-        return recommend
-    }
+//    fun getNextRecommend(): Recommend {
+//        return recommend
+//    }
 }

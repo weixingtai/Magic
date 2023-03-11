@@ -14,8 +14,6 @@ open class BaseStrategy {
     val recommendLotteries = mutableListOf<RecommendLottery>()
     val strategyList = mutableListOf<OpenResult>()
 
-    var recommend = Recommend(0,"")
-
     val hitList = mutableListOf<Int>()
 
     data class OpenResult (
@@ -25,6 +23,6 @@ open class BaseStrategy {
 
     data class Recommend(
         var longperiod: Int,
-        var num: String
+        var numbers: MutableSet<Int>
     )
 }

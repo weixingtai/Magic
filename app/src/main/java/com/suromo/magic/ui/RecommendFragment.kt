@@ -29,48 +29,55 @@ class RecommendFragment : Fragment() {
             strategy.initRecommend(lotteriesRecommend)
 
             recommendViewModel.lotteries.observe(viewLifecycleOwner) { lotteries ->
-                var lotteriesCopy = mutableListOf<Lottery>()
+                val lotteriesCopy = mutableListOf<Lottery>()
                 lotteriesCopy.addAll(lotteries)
                 lotteriesCopy.reverse()
                 val lotteriesTest = mutableListOf<Lottery>()
 
                 for (lottery in lotteriesCopy){
                     lotteriesTest.add(lottery)
-                    if (lottery.longperiod > 2023011){
+                    if (lottery.longperiod > 2022011){
 //                        Log.d("wxt","lotteriesTest:${lotteriesTest.size}")
                         strategy.initHistory(lotteriesTest)
                     }
                 }
 
-                val result = mutableListOf<MutableList<Int>>()
+                val historyList = mutableListOf<BaseStrategy.Recommend>()
+                val result = mutableListOf<MutableSet<Int>>()
                 for (lottery in lotteriesCopy){
-                    if (lottery.longperiod > 2023012){
-                        val openList = mutableListOf<Int>()
+                    if (lottery.longperiod > 2022012){
+                        val openList = mutableSetOf<Int>()
                         for (num in lottery.numbers.split(",")){
                             openList.add(num.toInt())
                         }
-                        Log.d("wxt","第${lottery.longperiod} 期")
+//                        Log.d("wxt","第${lottery.longperiod} 期")
                         result.add(openList)
+
+                        val open = BaseStrategy.Recommend(
+                            longperiod = lottery.longperiod,
+                            numbers = openList
+                        )
+                        historyList.add(open)
                     }
                 }
 
-                val recommend = strategy.strategy1
-                recommend.removeLast()
-                Log.d("wxt","预测号码：$recommend")
+                val recommendList = strategy.strategy2
+//                Log.d("wxt","预测号码：$recommendList")
+                recommendList.removeLast()
 //
-                Log.d("wxt","开奖号码：$result")
+//                Log.d("wxt","开奖号码：$historyList")
 
-                for (i in 0 until recommend.size){
+                for (i in 0 until recommendList.size){
                     var mIsWin = true
-                    for (num in recommend[i]){
-                        if (result[i].contains(num)){
+                    for (num in recommendList[i].numbers){
+                        if (historyList[i].numbers.contains(num)){
                             mIsWin = false
                         }
                     }
                     if (mIsWin){
-                        Log.d("wxt","策略中")
+                        Log.d("wxt","第${historyList[i].longperiod}期：策略中")
                     } else {
-                        Log.d("wxt","策略爆")
+                        Log.d("wxt","第${historyList[i].longperiod}期：策略爆")
                     }
                 }
             }
