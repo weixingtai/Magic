@@ -197,12 +197,24 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
                 }
 //                Log.d("wxt","出现最多次数的数：${num.key},共出现：${num.value}")
             }
+//            if (num.value == numMap.values.max()-1){
+//                if (numbers.count() < 7){
+//                    numbers.add(num.key)
+//                }
+////                Log.d("wxt","出现最多次数的数：${num.key},共出现：${num.value}")
+//            }
             if (num.value == numMap.values.min()){
                 if (numbers.count() < 7){
                     numbers.add(num.key)
                 }
 //                Log.d("wxt","出现最少次数的数：${num.key},共出现：${num.value}")
             }
+//            if (num.value == numMap.values.min()+1){
+//                if (numbers.count() < 7){
+//                    numbers.add(num.key)
+//                }
+////                Log.d("wxt","出现最少次数的数：${num.key},共出现：${num.value}")
+//            }
             if (num.value == averageValue){
                 if (numbers.count() < 7){
                     numbers.add(num.key)
@@ -210,26 +222,31 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
 //                Log.d("wxt","出现平均次数的数：${num.key},共出现：${num.value}")
             }
         }
-        if (numbers.count() < 7){
+        if (numbers.count() < 7 && !historyList.first().numbers.contains(1)){
             numbers.add(49)
         }
-        if (numbers.count() < 7){
+        if (numbers.count() < 7 && !historyList.first().numbers.contains(49)){
             numbers.add(1)
         }
         if (numbers.count() < 7){
-            numbers.add(25)
-        }
-        if (numbers.count() < 7){
-            numbers.add(8)
-        }
-        if (numbers.count() < 7){
-            numbers.add(20)
+            var specialNum = historyList.first().numbers.last()
+            while (specialNum > 10){
+                specialNum -= 10
+            }
+            if (specialNum!=0)
+            numbers.add(specialNum)
         }
         if (numbers.count() < 7){
             numbers.add(6)
         }
         if (numbers.count() < 7){
             numbers.add(12)
+        }
+        if (numbers.count() < 7){
+            numbers.add(20)
+        }
+        if (numbers.count() < 7){
+            numbers.add(27)
         }
 
 

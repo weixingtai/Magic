@@ -36,7 +36,7 @@ class RecommendFragment : Fragment() {
 
                 for (lottery in lotteriesCopy){
                     lotteriesTest.add(lottery)
-                    if (lottery.longperiod > 2022011){
+                    if (lottery.longperiod > 2023011){
 //                        Log.d("wxt","lotteriesTest:${lotteriesTest.size}")
                         strategy.initHistory(lotteriesTest)
                     }
@@ -45,7 +45,7 @@ class RecommendFragment : Fragment() {
                 val historyList = mutableListOf<BaseStrategy.Recommend>()
                 val result = mutableListOf<MutableSet<Int>>()
                 for (lottery in lotteriesCopy){
-                    if (lottery.longperiod > 2022012){
+                    if (lottery.longperiod > 2023012){
                         val openList = mutableSetOf<Int>()
                         for (num in lottery.numbers.split(",")){
                             openList.add(num.toInt())
@@ -62,10 +62,10 @@ class RecommendFragment : Fragment() {
                 }
 
                 val recommendList = strategy.strategy2
-//                Log.d("wxt","预测号码：$recommendList")
+                Log.d("wxt","预测号码：$recommendList")
                 recommendList.removeLast()
 //
-//                Log.d("wxt","开奖号码：$historyList")
+                Log.d("wxt","开奖号码：$historyList")
 
                 for (i in 0 until recommendList.size){
                     var mIsWin = true
