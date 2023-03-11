@@ -32,6 +32,13 @@ class LotteryRepository @Inject constructor(
         }
     }
 
+    suspend fun getLotteryRecommendByYearFromNetwork() : RequestResult<List<com.suromo.magic.net.response.Lottery>>{
+        return withContext(Dispatchers.IO) {
+            val result = LotteryService.create().getLotteryRecommendByYear().body.item
+            RequestResult.Success(result)
+        }
+    }
+
     suspend fun getLotteriesFromDb() : RequestResult<List<Lottery>> {
         return withContext(Dispatchers.IO) {
             val result = lotteryDao.getLotteries()

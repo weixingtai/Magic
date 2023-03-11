@@ -18,7 +18,7 @@ class LuckyMissFiveNumStrategy : BaseStrategy(), ILotteryStrategy {
         return "五不中"
     }
 
-    override fun calculateHistory(lotteries: List<Lottery>) {
+    fun calculateHistory(lotteries: List<Lottery>) {
         initHistory(lotteries)
         var winCount = 0
         var loseCount = 0
@@ -39,6 +39,10 @@ class LuckyMissFiveNumStrategy : BaseStrategy(), ILotteryStrategy {
         }
         Log.d("wxt","策略一共中：$winCount 次")
         Log.d("wxt","策略一共不中：$loseCount 次")
+    }
+
+    fun calculateHistory() {
+        TODO("Not yet implemented")
     }
 
     override fun initHistory(lotteries: List<Lottery>) {

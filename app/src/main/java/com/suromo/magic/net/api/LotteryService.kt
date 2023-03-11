@@ -31,6 +31,12 @@ interface LotteryService {
         @Query("year") year: Int = 2023
     ): LotteryResponse<Lotteries>
 
+    @GET("TbStat/GetMarkSixHistoryByYear")
+    suspend fun getLotteryRecommendByYear(
+        @Query("lotteryInfoId") infoId: Int = 22,
+        @Query("year") year: Int = 2022
+    ): LotteryResponse<Lotteries>
+
 
 
     companion object {

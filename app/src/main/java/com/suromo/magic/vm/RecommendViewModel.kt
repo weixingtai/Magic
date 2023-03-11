@@ -27,9 +27,11 @@ class RecommendViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _lotteries = MutableLiveData<List<Lottery>>()
+    private val _lotteriesRecommend = MutableLiveData<List<Lottery>>()
     private val _history = MutableLiveData<History>()
 
     val lotteries: LiveData<List<Lottery>> = _lotteries
+    val lotteriesRecommend: LiveData<List<Lottery>> = _lotteriesRecommend
     val history: LiveData<History> = _history
 
 
@@ -38,6 +40,7 @@ class RecommendViewModel @Inject constructor(
 //        if (!Hawk.get("init_history",false) || Hawk.get("init_long_period",0)!= getPreviousLongPeriod()){
             MLog.d("从网络获取数据")
             getLotteriesFromNetwork()
+            getLotteryRecommendByYearFromNetwork()
 //        } else {
 //            MLog.d("从本地获取数据")
 //            getLotteriesFromDb()
@@ -63,12 +66,49 @@ class RecommendViewModel @Inject constructor(
                         )
                         lotteriesDb.add(lotteryDb)
                     }
-                    lotteryDao.insertAll(lotteriesDb)
+//                    lotteryDao.insertAll(lotteriesDb)
                     MLog.d( "从网络获取数据存到数据库成功")
-                    Hawk.put("init_history",true)
-                    Hawk.put("init_long_period",lotteries[0].longperiod)
+//                    Hawk.put("init_history",true)
+//                    Hawk.put("init_long_period",lotteries[0].longperiod)
 
                     _lotteries.apply {
+                        value = lotteriesDb
+                    }
+
+//                    getLotteriesFromDb()
+                }
+                is RequestResult.Error -> {
+                    MLog.d( "从网络获取数据存到数据库失败")
+                }
+            }
+        }
+    }
+
+    private fun getLotteryRecommendByYearFromNetwork(){
+        viewModelScope.launch {
+            val source = async { repository.getLotteryRecommendByYearFromNetwork() }
+
+            when(val result = source.await()) {
+                is RequestResult.Success -> {
+                    val lotteries = result.data
+                    val lotteriesDb = mutableListOf<Lottery>()
+                    for (lottery in lotteries) {
+                        val lotteryDb = Lottery(
+                            longperiod = lottery.longperiod,
+                            period = lottery.period,
+                            numbers = lottery.numbers,
+                            sx = lottery.sx,
+                            wx = lottery.wx,
+                            date = lottery.date
+                        )
+                        lotteriesDb.add(lotteryDb)
+                    }
+//                    lotteryDao.insertAll(lotteriesDb)
+//                    MLog.d( "从网络获取数据存到数据库成功")
+//                    Hawk.put("init_history",true)
+//                    Hawk.put("init_long_period",lotteries[0].longperiod)
+
+                    _lotteriesRecommend.apply {
                         value = lotteriesDb
                     }
 
