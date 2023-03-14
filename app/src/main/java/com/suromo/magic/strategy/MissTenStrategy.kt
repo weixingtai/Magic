@@ -8,7 +8,7 @@ import com.suromo.magic.db.entity.Lottery
  * time   : 2023/2/26
  * desc   :
  */
-class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
+class MissTenStrategy : BaseStrategy(), ILotteryStrategy {
     val strategy1 = mutableListOf<Recommend>()
     val strategy2 = mutableListOf<Recommend>()
     val strategy3 = mutableListOf<Int>()
@@ -53,7 +53,7 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
         if (lotteries.isNotEmpty()) {
             for (lottery in lotteries) {
                 val longPeriod = lottery.longperiod
-                val numbers = lottery.numbers.split(",").take(5)
+                val numbers = lottery.numbers.split(",")
 
                 val resultList = mutableListOf<Int>()
 
@@ -61,6 +61,34 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
                 for (num in numbers) {
                     resultList.add(num.toInt())
                 }
+
+//                if (resultList.count() < 10 && !historyList.first().numbers.contains(1)){
+//                    resultList.add(49)
+//                }
+//                if (resultList.count() < 10 && !historyList.first().numbers.contains(49)){
+//                    resultList.add(1)
+//                }
+//                if (resultList.count() < 10){
+//                    var specialNum = historyList.first().numbers.last()
+//                    while (specialNum > 10){
+//                        specialNum -= 10
+//                    }
+//                    if (specialNum!=0)
+//                        resultList.add(specialNum)
+//                }
+                if (resultList.count() < 10){
+                    resultList.add(6)
+                }
+                if (resultList.count() < 10){
+                    resultList.add(12)
+                }
+                if (resultList.count() < 10){
+                    resultList.add(20)
+                }
+                if (resultList.count() < 10){
+                    resultList.add(27)
+                }
+
 
                 val openResult = OpenResult(longPeriod,resultList)
 
@@ -191,7 +219,7 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
 
         for (num in numMap){
             if (num.value == numMap.values.max()){
-                if (numbers.count() < 5){
+                if (numbers.count() < 10){
                     numbers.add(num.key)
                 }
 //                Log.d("wxt","出现最多次数的数：${num.key},共出现：${num.value}")
@@ -203,7 +231,7 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
 ////                Log.d("wxt","出现最多次数的数：${num.key},共出现：${num.value}")
 //            }
             if (num.value == numMap.values.min()){
-                if (numbers.count() < 5){
+                if (numbers.count() < 10){
                     numbers.add(num.key)
                 }
 //                Log.d("wxt","出现最少次数的数：${num.key},共出现：${num.value}")
@@ -215,19 +243,19 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
 ////                Log.d("wxt","出现最少次数的数：${num.key},共出现：${num.value}")
 //            }
             if (num.value == averageValue){
-                if (numbers.count() < 5){
+                if (numbers.count() < 10){
                     numbers.add(num.key)
                 }
 //                Log.d("wxt","出现平均次数的数：${num.key},共出现：${num.value}")
             }
         }
-        if (numbers.count() < 5 && !historyList.first().numbers.contains(1)){
+        if (numbers.count() < 10 && !historyList.first().numbers.contains(1)){
             numbers.add(49)
         }
-        if (numbers.count() < 5 && !historyList.first().numbers.contains(49)){
+        if (numbers.count() < 10 && !historyList.first().numbers.contains(49)){
             numbers.add(1)
         }
-        if (numbers.count() < 5){
+        if (numbers.count() < 10){
             var specialNum = historyList.first().numbers.last()
             while (specialNum > 10){
                 specialNum -= 10
@@ -235,16 +263,16 @@ class MissFiveStrategy : BaseStrategy(), ILotteryStrategy {
             if (specialNum!=0)
                 numbers.add(specialNum)
         }
-        if (numbers.count() < 5){
+        if (numbers.count() < 10){
             numbers.add(6)
         }
-        if (numbers.count() < 5){
+        if (numbers.count() < 10){
             numbers.add(12)
         }
-        if (numbers.count() < 5){
+        if (numbers.count() < 10){
             numbers.add(20)
         }
-        if (numbers.count() < 5){
+        if (numbers.count() < 10){
             numbers.add(27)
         }
 

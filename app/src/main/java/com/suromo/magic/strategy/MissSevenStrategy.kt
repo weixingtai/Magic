@@ -10,7 +10,7 @@ import com.suromo.magic.db.entity.Lottery
  * desc   :
  */
 class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
-    val strategy1 = mutableListOf<MutableSet<Int>>()
+    val strategy1 = mutableListOf<Recommend>()
     val strategy2 = mutableListOf<Recommend>()
     val strategy3 = mutableListOf<Int>()
     private val recommendNumList = mutableSetOf<Int>()
@@ -256,7 +256,7 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         )
 
 //        Log.d("wxt","推荐号码：$recommend")
-        strategy2.add(recommend)
+        strategy1.add(recommend)
 
 //        strategy1.add(numbers)
 

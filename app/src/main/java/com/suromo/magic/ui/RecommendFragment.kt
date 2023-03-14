@@ -61,11 +61,15 @@ class RecommendFragment : Fragment() {
                     }
                 }
 
-                val recommendList = strategy.strategy2
+                val recommendList = strategy.strategy1
                 Log.d("wxt","预测号码：$recommendList")
-                recommendList.removeLast()
+                val recommend = recommendList.removeLast()
+                binding.strategyTitle.text = "第${recommend.longperiod}期号码推荐："
+                binding.strategy1.text = "号码推荐：${recommend.numbers}"
 //
                 Log.d("wxt","开奖号码：$historyList")
+
+                val openResult = mutableListOf<String>()
 
                 for (i in 0 until recommendList.size){
                     var mIsWin = true
@@ -75,46 +79,18 @@ class RecommendFragment : Fragment() {
                         }
                     }
                     if (mIsWin){
+                        openResult.add("中")
                         Log.d("wxt","第${historyList[i].longperiod}期：策略中")
                     } else {
+                        openResult.add("爆")
                         Log.d("wxt","第${historyList[i].longperiod}期：策略爆")
                     }
                 }
+                binding.strategy2.text = openResult.toString()
+                binding.strategy3.text = "已爆${openResult.size - 1 - openResult.lastIndexOf("中")}期"
             }
 
         }
-
-
-
-
-//            lotteriesTest.removeLast()
-//            lotteriesTest.removeLast()
-
-//            D/wxt: 最近连爆最多次的策略：28
-//            D/wxt: 最近连爆最多次的策略:[2, 16, 5, 42, 44, 4, 8]
-
-//            D/wxt: 最近连爆最多次的策略：13
-//            D/wxt: 最近连爆最多次的策略:[22, 31, 19, 8, 12, 15, 41]
-
-//            D/wxt: 最近连爆最多次的策略：13
-//            D/wxt: 最近连爆最多次的策略:[7, 2, 32, 23, 26, 11, 34]
-
-//            D/wxt: 最近连爆最多次的策略：14
-//            D/wxt: 最近连爆最多次的策略:[7, 2, 32, 23, 26, 11, 34]
-
-//            D/wxt: 最近连爆最多次的策略：13
-//            D/wxt: 最近连爆最多次的策略:[34, 23, 26, 16, 44, 43, 11]
-//            D/wxt: 最近连爆最多次的策略:[6, 13, 3, 11, 9, 38, 26]
-//            D/wxt: 最近连爆最多次的策略:[8, 6, 29, 42, 4, 43, 5]
-//            D/wxt: 最近连爆最多次的策略:[7, 16, 29, 43, 26, 5, 8]
-
-//            D/wxt: 最近连爆最多次的策略：16
-//            D/wxt: 最近连爆最多次的策略:[25, 16, 39, 24, 10, 3, 45]
-
-//        }
-
-
-
         return root
     }
 
