@@ -23,7 +23,7 @@ class RecommendFragment : Fragment() {
 
         _binding = FragmentRecommendBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val strategy = MissSevenStrategy()
+        val strategy = MissTenStrategy()
 
         recommendViewModel.lotteriesRecommend.observe(viewLifecycleOwner) {lotteriesRecommend->
             strategy.initRecommend(lotteriesRecommend)
