@@ -16,7 +16,7 @@ class MissTenStrategy : BaseStrategy(), ILotteryStrategy {
     private val recommendNumList = mutableSetOf<Int>()
 
     override fun getStrategyName(): String {
-        return "五不中"
+        return "十不中"
     }
 
     override fun initHistory(lotteries: List<Lottery>) {
@@ -47,6 +47,10 @@ class MissTenStrategy : BaseStrategy(), ILotteryStrategy {
             }
         }
         generateStrategy()
+    }
+    private var addNum = 0;
+    fun initAddNum(num: Int){
+        addNum = num
     }
 
     fun initRecommend(lotteries: List<Lottery>) {
@@ -121,26 +125,32 @@ class MissTenStrategy : BaseStrategy(), ILotteryStrategy {
             var winCount = 0
             var loseCount = 0
             val count = mutableListOf<String>()
+            val num = mutableListOf<Int>()
             for (history in historyList) {
 //                Log.d("wxt","第${history.longPeriod}期:${history.numbers}")
                 var mIsWin = true
+                var lostNum = 0
                 for (num in recommend.numbers){
                     if (history.numbers.contains(num)){
 //                        Log.d("wxt","爆的号码：$num")
                         mIsWin = false
+                        lostNum++
                     }
                 }
                 if (mIsWin){
                     winCount++
                     count.add("中")
+                    num.add(lostNum)
                 }else{
                     loseCount++
                     count.add("爆")
+                    num.add(lostNum)
                 }
             }
 //            Log.d("wxt","${recommend.longPeriod}期：中$winCount 次，爆$loseCount 次")
 //            Log.d("wxt","号码：${recommend.numbers}")
 //            Log.d("wxt","详情：$count")
+//            Log.d("wxt","详情：$num")
 //            Log.d("wxt","策略最近爆的次数：${count.indexOf("中")}")
             missCount.add(count.indexOf("中"))
             allCount.add(count.count { it == "爆" })
@@ -217,12 +227,12 @@ class MissTenStrategy : BaseStrategy(), ILotteryStrategy {
 //                Log.d("wxt","爆次数为平均值的策略:"+recommendLottery.numbers)
             }
         }
-        Log.d("wxt","所有号码:${numMap.toSortedMap()}")
+//        Log.d("wxt","所有号码:${numMap.toSortedMap()}")
 
         if (numMap.isEmpty()){
             return
         }
-        val averageValue = (numMap.values.max() + numMap.values.min())/2
+        val averageValue = (numMap.values.max() + numMap.values.min())/2 + addNum
 
         val numbers =  mutableSetOf<Int>()
 

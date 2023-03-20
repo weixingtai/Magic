@@ -48,6 +48,10 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         }
         generateStrategy()
     }
+    private var addNum = 0
+    public fun initAddNum(num: Int){
+        addNum = num
+    }
 
     fun initRecommend(lotteries: List<Lottery>) {
         recommendList.clear()
@@ -186,7 +190,7 @@ class MissSevenStrategy : BaseStrategy(), ILotteryStrategy {
         }
 //        Log.d("wxt","所有号码:${numMap.toSortedMap()}")
 
-        val averageValue = (numMap.values.max() + numMap.values.min())/2 + 1
+        val averageValue = (numMap.values.max() + numMap.values.min())/2 + addNum
 
         val numbers =  mutableSetOf<Int>()
 
