@@ -57,7 +57,7 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
             }
         }
 
-
+        Log.d("wxt","historyList:$historyList")
 
 
         recommendList.clear()
@@ -82,7 +82,7 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
                     }
                 }
             }
-            Log.d("wxt","recommendNumList:${recommendNumMap}")
+//            Log.d("wxt","recommendNumList:${recommendNumMap}")
 
             recommendNumMap.values.max()
             recommendNumMap.values.min()
@@ -304,7 +304,7 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
                 }
             }
         }
-        Log.d("wxt","recommend8:$recommend9")
+        Log.d("wxt","recommend9:$recommend9")
 
         //策略10
         if (!minNumList.isNullOrEmpty()){
@@ -344,43 +344,43 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
 
 
         val recommendResult1 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend1.toMutableSet()
         )
         val recommendResult2 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend2.toMutableSet()
         )
         val recommendResult3 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend3.toMutableSet()
         )
         val recommendResult4 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend4.toMutableSet()
         )
         val recommendResult5 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend5.toMutableSet()
         )
         val recommendResult6 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend6.toMutableSet()
         )
         val recommendResult7 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend7.toMutableSet()
         )
         val recommendResult8 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend8.toMutableSet()
         )
         val recommendResult9 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend9.toMutableSet()
         )
         val recommendResult10 = Recommend(
-            longperiod = historyList.first().longPeriod + 1,
+            longperiod = historyList.last().longPeriod + 1,
             numbers = recommend10.toMutableSet()
         )
 

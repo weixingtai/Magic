@@ -30,25 +30,44 @@ class RecommendFragment : Fragment() {
             val lotteriesCopy = mutableListOf<Lottery>()
             lotteriesCopy.addAll(lotteries)
             lotteriesCopy.reverse()
-            Log.d("wxt","lotteriesCopy:$lotteriesCopy")
+//            Log.d("wxt","lotteriesCopy:$lotteriesCopy")
             val lotteriesTest = mutableListOf<Lottery>()
             for (lottery in lotteriesCopy){
                 lotteriesTest.add(lottery)
                 if (lottery.longperiod > 2023021){
+//                    Log.d("wxt","lotteriesTest:$lotteriesTest")
                     strategy1.initHistory(lotteriesTest)
+                    val recommendStrategy = strategy1.strategy1
+//                    Log.d("wxt", "recommendStrategy:$recommendStrategy")
+//                    for (recommendList in recommendStrategy){
+//                        Log.d("wxt","recommendList:$recommendList")
+//                        Log.d("wxt","第${recommendList[0].longperiod}期号码推荐：")
+//                        for (recommend in recommendList){
+//                            "号码推荐：${recommend.numbers}"
+//                        }
+//                    }
+
+
+
+
+
+
+
                 }
             }
 
             val historyList = mutableListOf<BaseStrategy.Recommend>()
             val result = mutableListOf<MutableSet<Int>>()
             for (lottery in lotteriesCopy){
-                if (lottery.longperiod > 2023012){
+                if (lottery.longperiod > 2023021){
                     val openList = mutableSetOf<Int>()
                     for (num in lottery.numbers.split(",")){
                         openList.add(num.toInt())
                     }
-//                        Log.d("wxt","第${lottery.longperiod} 期")
                     result.add(openList)
+//                    Log.d("wxt","第${lottery.longperiod} 期")
+//                    Log.d("wxt","号码：${openList}")
+
 
                     val open = BaseStrategy.Recommend(
                         longperiod = lottery.longperiod,
@@ -58,19 +77,18 @@ class RecommendFragment : Fragment() {
                 }
             }
 
-//            val recommendStrategy1 = strategy1.strategy1
-//            val strategyList = mutableListOf<BaseStrategy.Recommend>()
-//
-////                Log.d("wxt","预测号码：$recommendList")
-//            val recommend = recommendList.removeLast()
-//            binding.strategyTitle.text = "第${recommend.longperiod}期号码推荐："
-//            binding.strategy1.text = "号码推荐：${recommend.numbers}"
-////
-////                Log.d("wxt","开奖号码：$historyList")
-//
-//            val openResultShow = mutableListOf<String>()
-//            val openResult = mutableListOf<String>()
-//
+            val recommendStrategy = strategy1.strategy1
+            for (recommendList in recommendStrategy){
+//                Log.d("wxt","recommendList:$recommendList")
+//                Log.d("wxt","第${recommendList[0].longperiod}期号码推荐：")
+                for (recommend in recommendList){
+//                    "号码推荐：${recommend.numbers}"
+                }
+            }
+
+            val openResultShow = mutableListOf<String>()
+            val openResult = mutableListOf<String>()
+
 //            for (i in 0 until recommendList.size){
 //                var mIsWin = true
 //                var mLostNum = 0
