@@ -11,7 +11,7 @@ import kotlin.math.max
  * desc   :
  */
 class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
-    val strategy1 = mutableListOf<MutableList<Recommend>>()
+    val strategy1 = mutableListOf<MutableList<MutableList<Recommend>>>()
     val recommendNumMap = mutableMapOf<Int,Int>()
     val countMap = mutableMapOf<Int,MutableList<Int>>()
     val recommend1 = mutableListOf<Int>()
@@ -26,7 +26,7 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
     val recommend10 = mutableListOf<Int>()
 
     override fun getStrategyName(): String {
-        return "七不中"
+        return "十不中"
     }
 
     override fun initHistory(lotteries: List<Lottery>) {
@@ -57,11 +57,21 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
             }
         }
 
-        Log.d("wxt","historyList:$historyList")
+//        Log.d("wxt","historyList:$historyList")
 
 
         recommendList.clear()
         recommendNumMap.clear()
+        recommend1.clear()
+        recommend2.clear()
+        recommend3.clear()
+        recommend4.clear()
+        recommend5.clear()
+        recommend6.clear()
+        recommend7.clear()
+        recommend8.clear()
+        recommend9.clear()
+        recommend10.clear()
         countMap.clear()
         for (i in 1 .. 49){
             recommendNumMap[i] = 0
@@ -97,7 +107,7 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
                 countMap[value] = keyList
             }
 
-            Log.d("wxt","countMap:$countMap")
+//            Log.d("wxt","countMap:$countMap")
 
         }
 
@@ -111,200 +121,162 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
         //策略1
         for (key in minCount .. maxCount){
             val numList = countMap[key]
+//            Log.d("wxt","numList:${numList}")
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 2){
-                        if (recommend1.size < 10){
-                            recommend1.add(num)
-                            addCount++
-                        }
+                    if (recommend1.size < 10){
+//                        Log.d("wxt","num:${num}")
+                        recommend1.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend1:$recommend1")
+//        Log.d("wxt","recommend1:${recommend1.toSortedSet()}")
 
         //策略2
         for (key in maxCount downTo minCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 2){
-                        if (recommend2.size < 10){
-                            recommend2.add(num)
-                            addCount++
-                        }
+                    if (recommend2.size < 10){
+                        recommend2.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend2:$recommend2")
+//        Log.d("wxt","recommend2:${recommend2.toSortedSet()}")
 
         //策略3
         for (key in minCount+1 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 3){
-                        if (recommend3.size < 10){
-                            recommend3.add(num)
-                            addCount++
-                        }
+                    if (recommend3.size < 10){
+                        recommend3.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend3:$recommend3")
+//        Log.d("wxt","recommend3:${recommend3.toSortedSet()}")
 
 
         //策略4
         for (key in maxCount-1 downTo minCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 3){
-                        if (recommend4.size < 10){
-                            recommend4.add(num)
-                            addCount++
-                        }
+                    if (recommend4.size < 10){
+                        recommend4.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend4:$recommend4")
+//        Log.d("wxt","recommend4:${recommend4.toSortedSet()}")
 
 
         //策略5
         for (key in minCount+3 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 4){
-                        if (recommend5.size < 10){
-                            recommend5.add(num)
-                            addCount++
-                        }
+                    if (recommend5.size < 10){
+                        recommend5.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend5:$recommend5")
+//        Log.d("wxt","recommend5:${recommend5.toSortedSet()}")
 
 
         //策略6
         for (key in maxCount-3 downTo minCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
-                    if (addCount < 4){
-                        if (recommend6.size < 10){
-                            recommend6.add(num)
-                            addCount++
-                        }
+                    if (recommend6.size < 10){
+                        recommend6.add(num)
                     }
                 }
             }
         }
-        Log.d("wxt","recommend6:$recommend6")
+//        Log.d("wxt","recommend6:${recommend6.toSortedSet()}")
 
 
         //策略7
         if (!averageNumList.isNullOrEmpty()){
-            var addCount = 0
             for (num in averageNumList){
                 if (recommend7.size < 10){
                     recommend7.add(num)
-                    addCount++
                 }
             }
         }
         for (key in averageCount-2 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
                     if (recommend7.size < 10){
                         recommend7.add(num)
-                        addCount++
                     }
                 }
             }
         }
-        Log.d("wxt","recommend7:$recommend7")
+//        Log.d("wxt","recommend7:${recommend7.toSortedSet()}")
 
 
         //策略8
         if (!averageNumList.isNullOrEmpty()){
-            var addCount = 0
             for (num in averageNumList){
                 if (recommend8.size < 10){
                     recommend8.add(num)
-                    addCount++
                 }
             }
         }
         for (key in averageCount+1 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
                     if (recommend8.size < 10){
                         recommend8.add(num)
-                        addCount++
                     }
                 }
             }
         }
-        Log.d("wxt","recommend8:$recommend8")
+//        Log.d("wxt","recommend8:${recommend8.toSortedSet()}")
 
 
         //策略9
         if (!minNumList.isNullOrEmpty()){
-            var addCount = 0
             for (num in minNumList){
                 if (recommend9.size < 10){
                     recommend9.add(num)
-                    addCount++
                 }
             }
         }
         if (!maxNumList.isNullOrEmpty()){
-            var addCount = 0
             for (num in maxNumList){
                 if (recommend9.size < 10){
                     recommend9.add(num)
-                    addCount++
                 }
             }
         }
         if (!averageNumListAdd1.isNullOrEmpty()){
-            var addCount = 0
             for (num in averageNumListAdd1){
                 if (recommend9.size < 10){
                     recommend9.add(num)
-                    addCount++
                 }
             }
         }
         for (key in minCount+2 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
                     if (recommend9.size < 10){
                         recommend9.add(num)
-                        addCount++
                     }
                 }
             }
         }
-        Log.d("wxt","recommend9:$recommend9")
+//        Log.d("wxt","recommend9:${recommend9.toSortedSet()}")
 
         //策略10
         if (!minNumList.isNullOrEmpty()){
@@ -331,16 +303,14 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
         for (key in maxCount-2 .. maxCount){
             val numList = countMap[key]
             if (!numList.isNullOrEmpty()){
-                var addCount = 0
                 for (num in numList){
                     if (recommend10.size < 10){
                         recommend10.add(num)
-                        addCount++
                     }
                 }
             }
         }
-        Log.d("wxt","recommend10:$recommend10")
+//        Log.d("wxt","recommend10:${recommend10.toSortedSet()}")
 
 
         val recommendResult1 = Recommend(
@@ -384,19 +354,21 @@ class MissAverageTenStrategy : BaseStrategy(), ILotteryStrategy {
             numbers = recommend10.toMutableSet()
         )
 
-        val strategyList = mutableListOf<Recommend>()
-        strategyList.add(recommendResult1)
-        strategyList.add(recommendResult2)
-        strategyList.add(recommendResult3)
-        strategyList.add(recommendResult4)
-        strategyList.add(recommendResult5)
-        strategyList.add(recommendResult6)
-        strategyList.add(recommendResult7)
-        strategyList.add(recommendResult8)
-        strategyList.add(recommendResult9)
-        strategyList.add(recommendResult10)
+        val recommendList = mutableListOf<Recommend>()
+        recommendList.add(recommendResult1)
+        recommendList.add(recommendResult2)
+        recommendList.add(recommendResult3)
+        recommendList.add(recommendResult4)
+        recommendList.add(recommendResult5)
+        recommendList.add(recommendResult6)
+        recommendList.add(recommendResult7)
+        recommendList.add(recommendResult8)
+        recommendList.add(recommendResult9)
+        recommendList.add(recommendResult10)
+        val strategyList = mutableListOf<MutableList<Recommend>>()
+        strategyList.add(recommendList)
         strategy1.add(strategyList)
-
+//        Log.d("wxt","strategy1:${strategy1}")
     }
     private var addNum = 0
     public fun initAddNum(num: Int){
